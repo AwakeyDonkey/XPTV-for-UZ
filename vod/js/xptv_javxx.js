@@ -1,7 +1,7 @@
 // ignore
 //@name:XPAV - javxx
 //@webSite:https://javxx.com
-//@version:1
+//@version:2
 //@remark:XPTV 动态兼容适配器；首次使用需要联网加载原始源
 //@isAV:1
 //@deprecated:0

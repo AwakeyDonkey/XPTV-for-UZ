@@ -1,7 +1,7 @@
 // ignore
 //@name:XPTV - 嗷嗚動漫
 //@webSite:https://www.aowu.tv
-//@version:1
+//@version:2
 //@remark:XPTV 动态兼容适配器；首次使用需要联网加载原始源
 //@isAV:0
 //@deprecated:0

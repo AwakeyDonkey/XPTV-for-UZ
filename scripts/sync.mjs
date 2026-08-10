@@ -95,11 +95,12 @@ const slugify = (site, index) => {
 }
 
 const jsString = (value) => JSON.stringify(String(value))
+const adapterVersion = 2
 
 const adapter = (site, slug) => `// ignore
 //@name:${site.catalog || 'XPTV'} - ${site.name}
 //@webSite:${site.webSite}
-//@version:1
+//@version:${adapterVersion}
 //@remark:XPTV 动态兼容适配器；首次使用需要联网加载原始源
 //@isAV:${site.isAV ? 1 : 0}
 //@deprecated:0
@@ -354,7 +355,7 @@ sources.sites.forEach((site, index) => {
   fs.writeFileSync(path.join(outputDir, fileName), adapter(site, slug))
   local.push({
     name: `${site.catalog || 'XPTV'} - ${site.name}`,
-    version: 1,
+    version: adapterVersion,
     remark: `${site.catalog || 'XPTV'} 动态兼容适配器（实验性）`,
     webSite: site.webSite,
     api: `vod/js/${fileName}`,
