@@ -44,6 +44,10 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
+          VERSION="v$(node -p "require('./package.json').version")"
+          if ! gh release view "$VERSION" >/dev/null 2>&1; then
+            gh release create "$VERSION" dist/XPTV-for-UZ.zip --title "XPTV-for-UZ $VERSION" --notes "Versioned XPTV-to-UZ compatibility package."
+          fi
           if gh release view uz-latest >/dev/null 2>&1; then
             gh release upload uz-latest dist/XPTV-for-UZ.zip --clobber
           else

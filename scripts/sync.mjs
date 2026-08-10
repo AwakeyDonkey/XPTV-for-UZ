@@ -8,6 +8,10 @@ const sources = JSON.parse(fs.readFileSync(sourcesPath, 'utf8'))
 const shouldFetch = !process.argv.includes('--offline')
 const previousSites = Array.isArray(sources.sites) ? sources.sites : []
 const previousWebSites = new Map(previousSites.map((site) => [`${site.catalog}:${site.api || site.name}`, site.webSite || '']))
+const previousCapabilities = new Map(previousSites.map((site) => [`${site.catalog}:${site.api || site.name}`, {
+  hasSearch: site.hasSearch,
+  hasFilters: site.hasFilters,
+}]))
 const websiteOverrides = {
   csp_jpyy: 'https://www.jiabaide.cn',
   csp_guazi: 'https://api.w32z7vtd.com',
@@ -28,19 +32,33 @@ function extractWebsite(code) {
   return ''
 }
 
+function detectCapabilities(code) {
+  const hasSearch = /(?:async\s+)?function\s+search\b/.test(code)
+  const passesFilters = /\b(?:ext|args)\??\.filters\b/.test(code)
+  const returnsFilters = /(?:jsonify|JSON\.stringify)\s*\(\s*\{[\s\S]{0,800}?\bfilter\s*:/m.test(code)
+  return { hasSearch, hasFilters: passesFilters || returnsFilters }
+}
+
 async function addWebsite(site) {
   const key = `${site.catalog}:${site.api || site.name}`
   let webSite = websiteOverrides[site.api] || previousWebSites.get(key) || ''
+  const previous = previousCapabilities.get(key) || {}
+  let hasSearch = previous.hasSearch
+  let hasFilters = previous.hasFilters
   try {
     const response = await fetch(site.ext, { headers: { 'User-Agent': 'XPTV-for-UZ-website-scan/1.0' } })
     if (!response.ok) throw new Error(`HTTP ${response.status}`)
-    webSite = extractWebsite(await response.text()) || webSite
+    const code = await response.text()
+    webSite = extractWebsite(code) || webSite
+    const capabilities = detectCapabilities(code)
+    hasSearch = capabilities.hasSearch
+    hasFilters = capabilities.hasFilters
   } catch (error) {
     if (!webSite) throw new Error(`${site.catalog} - ${site.name}: website resolution failed (${error.message})`)
     console.warn(`${site.catalog} - ${site.name}: kept cached/override website (${error.message})`)
   }
   if (!webSite) throw new Error(`${site.catalog} - ${site.name}: website is empty`)
-  return { ...site, webSite }
+  return { ...site, webSite, hasSearch: hasSearch !== false, hasFilters: hasFilters === true }
 }
 
 if (shouldFetch) {
@@ -95,7 +113,7 @@ const slugify = (site, index) => {
 }
 
 const jsString = (value) => JSON.stringify(String(value))
-const adapterVersion = 2
+const adapterVersion = 3
 
 const adapter = (site, slug) => `// ignore
 //@name:${site.catalog || 'XPTV'} - ${site.name}
@@ -109,6 +127,8 @@ const adapter = (site, slug) => `// ignore
 const XPTV_SOURCE_NAME = ${jsString(site.name)}
 const XPTV_SOURCE_URL = ${jsString(site.ext)}
 const XPTV_SOURCE_KEY = ${jsString(slug)}
+const XPTV_HAS_SEARCH = ${site.hasSearch !== false}
+const XPTV_HAS_FILTERS = ${site.hasFilters === true}
 
 const appConfig = {
   _webSite: '',
@@ -140,6 +160,46 @@ function xptvDecode(value) {
   const text = String(value || '')
   if (!text.startsWith('xptv:')) return { id: text, url: text }
   try { return JSON.parse(decodeURIComponent(text.slice(5))) } catch (_) { return {} }
+}
+
+function xptvScalar(value) {
+  if (value == null) return ''
+  if (typeof value === 'object') return 'xptv-filter:' + encodeURIComponent(JSON.stringify(value))
+  return String(value)
+}
+
+function xptvFilterValue(value) {
+  const text = String(value == null ? '' : value)
+  if (!text.startsWith('xptv-filter:')) return text
+  try { return JSON.parse(decodeURIComponent(text.slice(12))) } catch (_) { return text }
+}
+
+function xptvFilterTitles(rawFilter) {
+  let groups = []
+  if (Array.isArray(rawFilter)) groups = rawFilter
+  else if (rawFilter && typeof rawFilter === 'object') {
+    groups = Object.keys(rawFilter).map((key) => {
+      const value = rawFilter[key]
+      return Array.isArray(value) ? { key: key, name: key, value: value } : value
+    })
+  }
+  return groups.map((group, groupIndex) => {
+    if (!group || typeof group !== 'object') return null
+    const values = group.value || group.values || group.list || group.options || []
+    if (!Array.isArray(values) || values.length === 0) return null
+    const title = new FilterTitle()
+    title.name = String(group.name || group.title || group.label || group.key || ('筛选' + (groupIndex + 1)))
+    const key = String(group.key == null ? (group.id == null ? groupIndex : group.id) : group.key)
+    title.list = values.map((option) => {
+      const item = option && typeof option === 'object' ? option : { n: option, v: option }
+      const label = new FilterLabel()
+      label.name = String(item.n == null ? (item.name == null ? (item.label == null ? item.v : item.label) : item.name) : item.n)
+      label.id = xptvScalar(item.v == null ? (item.id == null ? item.value : item.id) : item.v)
+      label.key = key
+      return label
+    })
+    return title
+  }).filter(Boolean)
 }
 
 function xptvCheerioTools() {
@@ -196,6 +256,18 @@ async function xptvLoadRuntime() {
         if (maybeOptions) return xptvRequest('post', url, Object.assign({}, maybeOptions, { data: dataOrOptions }))
         if (dataOrOptions && typeof dataOrOptions === 'object') return xptvRequest('post', url, dataOrOptions)
         return xptvRequest('post', url, { data: dataOrOptions })
+      },
+      download: async (url, options) => {
+        const opts = options || {}
+        const response = await req(url, { method: 'get', headers: opts.headers || {}, responseType: 'arraybuffer' })
+        let bytes = response.data
+        if (bytes instanceof ArrayBuffer) bytes = new Uint8Array(bytes)
+        else if (ArrayBuffer.isView(bytes)) bytes = new Uint8Array(bytes.buffer, bytes.byteOffset, bytes.byteLength)
+        else if (Array.isArray(bytes)) bytes = new Uint8Array(bytes)
+        const data = bytes && typeof bytes.length === 'number'
+          ? Array.from(bytes, (byte) => Number(byte).toString(2).padStart(8, '0')).join('')
+          : xptvText(bytes)
+        return { data: data, headers: response.headers || {}, respHeaders: response.headers || {}, status: response.statusCode || response.status || 200 }
       },
     }
     const $cache = {
@@ -257,7 +329,7 @@ async function getClassList(args) {
       const item = new VideoClass()
       item.type_id = xptvEncode(tab.ext || { id: index })
       item.type_name = tab.name || String(index + 1)
-      item.hasSubclass = false
+      item.hasSubclass = XPTV_HAS_FILTERS
       return item
     })
   } catch (error) { backData.error = String(error) }
@@ -265,7 +337,19 @@ async function getClassList(args) {
 }
 
 async function getSubclassList(args) {
-  return JSON.stringify(new RepVideoSubclassList())
+  const backData = new RepVideoSubclassList()
+  try {
+    if (!XPTV_HAS_FILTERS) return JSON.stringify(backData)
+    const runtime = await xptvLoadRuntime()
+    if (!runtime.getCards) throw new Error('XPTV source does not implement getCards')
+    const ext = xptvDecode(args.url)
+    ext.page = 1
+    const result = xptvParse(await runtime.getCards(JSON.stringify(ext)))
+    const data = new VideoSubclass()
+    data.filter = xptvFilterTitles(result.filter || result.filters)
+    backData.data = data
+  } catch (error) { backData.error = String(error) }
+  return JSON.stringify(backData)
 }
 
 async function getVideoList(args) {
@@ -276,14 +360,31 @@ async function getVideoList(args) {
     const ext = xptvDecode(args.url)
     ext.page = args.page || 1
     const result = xptvParse(await runtime.getCards(JSON.stringify(ext)))
-    backData.data = (Array.isArray(result.list) ? result.list : []).map(xptvCardToVideo)
-    backData.total = Number(result.total || 0)
+    const list = Array.isArray(result.list) ? result.list : []
+    backData.data = list.map(xptvCardToVideo)
+    backData.total = Number(result.total == null ? list.length : result.total)
   } catch (error) { backData.error = String(error) }
   return JSON.stringify(backData)
 }
 
 async function getSubclassVideoList(args) {
-  return getVideoList({ url: args.subclassId || args.mainClassId || args.url, page: args.page || 1 })
+  const backData = new RepVideoList()
+  try {
+    const runtime = await xptvLoadRuntime()
+    if (!runtime.getCards) throw new Error('XPTV source does not implement getCards')
+    const ext = xptvDecode(args.subclassId || args.mainClassId || args.url)
+    ext.page = args.page || 1
+    ext.filters = {}
+    const selected = Array.isArray(args.filter) ? args.filter : []
+    selected.forEach((item) => {
+      if (item && item.key != null) ext.filters[String(item.key)] = xptvFilterValue(item.id)
+    })
+    const result = xptvParse(await runtime.getCards(JSON.stringify(ext)))
+    const list = Array.isArray(result.list) ? result.list : []
+    backData.data = list.map(xptvCardToVideo)
+    backData.total = Number(result.total == null ? list.length : result.total)
+  } catch (error) { backData.error = String(error) }
+  return JSON.stringify(backData)
 }
 
 async function getVideoDetail(args) {
@@ -330,10 +431,13 @@ async function searchVideo(args) {
   const backData = new RepVideoList()
   try {
     const runtime = await xptvLoadRuntime()
-    if (!runtime.search) throw new Error('XPTV source does not implement search')
-    const result = xptvParse(await runtime.search(JSON.stringify({ text: args.searchWord || '', page: args.page || 1 })))
-    backData.data = (Array.isArray(result.list) ? result.list : []).map(xptvCardToVideo)
-    backData.total = Number(result.total || 0)
+    if (!XPTV_HAS_SEARCH || !runtime.search) throw new Error('XPTV source does not implement search')
+    const keyword = String(args.searchWord || '').trim()
+    if (!keyword) return JSON.stringify(backData)
+    const result = xptvParse(await runtime.search(JSON.stringify({ text: keyword, wd: keyword, keyword: keyword, page: args.page || 1 })))
+    const list = Array.isArray(result.list) ? result.list : []
+    backData.data = list.map(xptvCardToVideo)
+    backData.total = Number(result.total == null ? list.length : result.total)
   } catch (error) { backData.error = String(error) }
   return JSON.stringify(backData)
 }

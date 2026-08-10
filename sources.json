@@ -13,7 +13,7 @@
       "isAV": true
     }
   ],
-  "syncedAt": "2026-08-10T07:49:49.845Z",
+  "syncedAt": "2026-08-10T08:15:18.780Z",
   "sites": [
     {
       "name": "哔滴影视",
@@ -22,7 +22,9 @@
       "ext": "https://ghp.xptvhelper.link/https://raw.githubusercontent.com/fangkuia/XPTV/refs/heads/main/js/bdys.js",
       "catalog": "XPTV",
       "isAV": false,
-      "webSite": "https://v.xl01.eu.cc"
+      "webSite": "https://v.xl01.eu.cc",
+      "hasSearch": true,
+      "hasFilters": true
     },
     {
       "name": "欧乐🪜",
@@ -31,7 +33,9 @@
       "ext": "https://ghp.xptvhelper.link/https://raw.githubusercontent.com/fangkuia/XPTV/refs/heads/main/js/ole.js",
       "catalog": "XPTV",
       "isAV": false,
-      "webSite": "https://api.olelive.com"
+      "webSite": "https://api.olelive.com",
+      "hasSearch": true,
+      "hasFilters": true
     },
     {
       "name": "在线之家",
@@ -40,7 +44,9 @@
       "ext": "https://ghp.xptvhelper.link/https://raw.githubusercontent.com/fangkuia/XPTV/refs/heads/main/js/zxzj.js",
       "catalog": "XPTV",
       "isAV": false,
-      "webSite": "https://www.zxzjhd.com"
+      "webSite": "https://www.zxzjhd.com",
+      "hasSearch": true,
+      "hasFilters": true
     },
     {
       "name": "LIBVIO",
@@ -49,7 +55,9 @@
       "ext": "https://ghp.xptvhelper.link/https://raw.githubusercontent.com/fangkuia/XPTV/refs/heads/main/js/libvio.js",
       "catalog": "XPTV",
       "isAV": false,
-      "webSite": "https://www.libvios.com"
+      "webSite": "https://www.libvios.com",
+      "hasSearch": true,
+      "hasFilters": false
     },
     {
       "name": "ギリギリ动漫",
@@ -58,7 +66,9 @@
       "ext": "https://ghp.xptvhelper.link/https://raw.githubusercontent.com/fangkuia/XPTV/refs/heads/main/js/ai.js",
       "catalog": "XPTV",
       "isAV": false,
-      "webSite": "https://bgm.girigirilove.com"
+      "webSite": "https://bgm.girigirilove.com",
+      "hasSearch": true,
+      "hasFilters": false
     },
     {
       "name": "独播库",
@@ -67,7 +77,9 @@
       "ext": "https://ghp.xptvhelper.link/https://raw.githubusercontent.com/fangkuia/XPTV/refs/heads/main/js/duboku.js",
       "catalog": "XPTV",
       "isAV": false,
-      "webSite": "https://www.dbku.tv"
+      "webSite": "https://www.dbku.tv",
+      "hasSearch": true,
+      "hasFilters": true
     },
     {
       "name": "AGE动漫",
@@ -76,7 +88,9 @@
       "ext": "https://gist.githubusercontent.com/occupy-pluto/e3a7bb98d5027d0f6dfa85fc2ac11a78/raw/6deb0475d295ac867ccb9c7cf3b1fb212a77abd7/agedm.js",
       "catalog": "XPTV",
       "isAV": false,
-      "webSite": "https://m.agedm.io/#/"
+      "webSite": "https://m.agedm.io/#/",
+      "hasSearch": true,
+      "hasFilters": false
     },
     {
       "name": "4k-av",
@@ -85,7 +99,9 @@
       "ext": "https://ghp.xptvhelper.link/https://raw.githubusercontent.com/Yswag/xptv-extensions/main/js/4kav.js",
       "catalog": "XPTV",
       "isAV": false,
-      "webSite": "https://4kmp.com"
+      "webSite": "https://4kmp.com",
+      "hasSearch": true,
+      "hasFilters": false
     },
     {
       "name": "韓劇看看",
@@ -94,7 +110,9 @@
       "ext": "https://ghp.xptvhelper.link/https://raw.githubusercontent.com/Yswag/xptv-extensions/main/js/hjkk.js",
       "catalog": "XPTV",
       "isAV": false,
-      "webSite": "https://www.hanjukankan.com"
+      "webSite": "https://www.hanjukankan.com",
+      "hasSearch": true,
+      "hasFilters": false
     },
     {
       "name": "金牌影院",
@@ -103,7 +121,9 @@
       "ext": "https://ghp.xptvhelper.link/https://raw.githubusercontent.com/Yswag/xptv-extensions/main/js/jpyy.js",
       "catalog": "XPTV",
       "isAV": false,
-      "webSite": "https://www.jiabaide.cn"
+      "webSite": "https://www.jiabaide.cn",
+      "hasSearch": true,
+      "hasFilters": true
     },
     {
       "name": "燒火電影",
@@ -112,7 +132,9 @@
       "ext": "https://ghp.xptvhelper.link/https://raw.githubusercontent.com/Yswag/xptv-extensions/main/js/saohuo.js",
       "catalog": "XPTV",
       "isAV": false,
-      "webSite": "https://saohuo.tv"
+      "webSite": "https://saohuo.tv",
+      "hasSearch": true,
+      "hasFilters": false
     },
     {
       "name": "NO視頻",
@@ -121,7 +143,9 @@
       "ext": "https://ghp.xptvhelper.link/https://raw.githubusercontent.com/Yswag/xptv-extensions/main/js/novipnoad.js",
       "catalog": "XPTV",
       "isAV": false,
-      "webSite": "https://www.novipnoad.net"
+      "webSite": "https://www.novipnoad.net",
+      "hasSearch": true,
+      "hasFilters": false
     },
     {
       "name": "星芽短劇",
@@ -130,7 +154,9 @@
       "ext": "https://ghp.xptvhelper.link/https://raw.githubusercontent.com/Yswag/xptv-extensions/main/js/xingya.js",
       "catalog": "XPTV",
       "isAV": false,
-      "webSite": "https://app.whjzjx.cn"
+      "webSite": "https://app.whjzjx.cn",
+      "hasSearch": true,
+      "hasFilters": false
     },
     {
       "name": "瓜子",
@@ -139,7 +165,9 @@
       "ext": "https://ghp.xptvhelper.link/https://raw.githubusercontent.com/Yswag/xptv-extensions/main/js/gzys.js",
       "catalog": "XPTV",
       "isAV": false,
-      "webSite": "https://api.w32z7vtd.com"
+      "webSite": "https://api.w32z7vtd.com",
+      "hasSearch": true,
+      "hasFilters": false
     },
     {
       "name": "愛壹帆",
@@ -148,7 +176,9 @@
       "ext": "https://ghp.xptvhelper.link/https://raw.githubusercontent.com/Yswag/xptv-extensions/main/js/iyftv.js",
       "catalog": "XPTV",
       "isAV": false,
-      "webSite": "https://m10.iyf.tv"
+      "webSite": "https://m10.iyf.tv",
+      "hasSearch": true,
+      "hasFilters": false
     },
     {
       "name": "影视天堂",
@@ -157,7 +187,9 @@
       "ext": "https://ghp.xptvhelper.link/https://raw.githubusercontent.com/fangkuia/XPTV/refs/heads/main/js/ystt.js",
       "catalog": "XPTV",
       "isAV": false,
-      "webSite": "https://ysttv.com"
+      "webSite": "https://ysttv.com",
+      "hasSearch": true,
+      "hasFilters": false
     },
     {
       "name": "嗷嗚動漫",
@@ -166,7 +198,9 @@
       "ext": "https://ghp.xptvhelper.link/https://raw.githubusercontent.com/Yswag/xptv-extensions/main/js/aowu.js",
       "catalog": "XPTV",
       "isAV": false,
-      "webSite": "https://www.aowu.tv"
+      "webSite": "https://www.aowu.tv",
+      "hasSearch": true,
+      "hasFilters": false
     },
     {
       "name": "荐片",
@@ -175,7 +209,9 @@
       "ext": "https://ghp.xptvhelper.link/https://raw.githubusercontent.com/Yswag/xptv-extensions/refs/heads/main/js/jianpian.js",
       "catalog": "XPTV",
       "isAV": false,
-      "webSite": "https://ev5356.970xw.com"
+      "webSite": "https://ev5356.970xw.com",
+      "hasSearch": true,
+      "hasFilters": true
     },
     {
       "name": "人人",
@@ -184,7 +220,9 @@
       "ext": "https://ghp.xptvhelper.link/https://raw.githubusercontent.com/Yswag/xptv-extensions/refs/heads/main/js/rrmj.js",
       "catalog": "XPTV",
       "isAV": false,
-      "webSite": "https://api.rrmj.plus"
+      "webSite": "https://api.rrmj.plus",
+      "hasSearch": true,
+      "hasFilters": false
     },
     {
       "name": "anime1",
@@ -193,7 +231,9 @@
       "ext": "https://ghp.xptvhelper.link/https://raw.githubusercontent.com/Yswag/xptv-extensions/refs/heads/main/js/anime1.js",
       "catalog": "XPTV",
       "isAV": false,
-      "webSite": "https://anime1.me"
+      "webSite": "https://anime1.me",
+      "hasSearch": true,
+      "hasFilters": false
     },
     {
       "name": "农民影视",
@@ -202,7 +242,9 @@
       "ext": "https://ghp.xptvhelper.link/https://raw.githubusercontent.com/Yswag/xptv-extensions/refs/heads/main/js/wwgz.js",
       "catalog": "XPTV",
       "isAV": false,
-      "webSite": "https://vip.wwgz.cn:5200"
+      "webSite": "https://vip.wwgz.cn:5200",
+      "hasSearch": true,
+      "hasFilters": true
     },
     {
       "name": "七色番動漫",
@@ -211,7 +253,9 @@
       "ext": "https://ghp.xptvhelper.link/https://raw.githubusercontent.com/Yswag/xptv-extensions/refs/heads/main/js/7sefun.js",
       "catalog": "XPTV",
       "isAV": false,
-      "webSite": "https://www.7sefun.top"
+      "webSite": "https://www.7sefun.top",
+      "hasSearch": true,
+      "hasFilters": false
     },
     {
       "name": "茶杯狐",
@@ -220,7 +264,9 @@
       "ext": "https://ghp.xptvhelper.link/https://raw.githubusercontent.com/Yswag/xptv-extensions/refs/heads/main/js/cupfox.js",
       "catalog": "XPTV",
       "isAV": false,
-      "webSite": "https://www.cupfox.ai"
+      "webSite": "https://www.cupfox.ai",
+      "hasSearch": true,
+      "hasFilters": false
     },
     {
       "name": "路漫漫",
@@ -229,7 +275,9 @@
       "ext": "https://ghp.xptvhelper.link/https://raw.githubusercontent.com/Yswag/xptv-extensions/refs/heads/main/js/lmm85.js",
       "catalog": "XPTV",
       "isAV": false,
-      "webSite": "https://www.lmm85.com"
+      "webSite": "https://www.lmm85.com",
+      "hasSearch": true,
+      "hasFilters": false
     },
     {
       "name": "ppnix",
@@ -238,7 +286,9 @@
       "ext": "https://ghp.xptvhelper.link/https://raw.githubusercontent.com/Yswag/xptv-extensions/refs/heads/main/js/ppnix.js",
       "catalog": "XPTV",
       "isAV": false,
-      "webSite": "https://www.ppnix.com"
+      "webSite": "https://www.ppnix.com",
+      "hasSearch": true,
+      "hasFilters": true
     },
     {
       "name": "河馬短劇",
@@ -247,7 +297,9 @@
       "ext": "https://ghp.xptvhelper.link/https://raw.githubusercontent.com/Yswag/xptv-extensions/refs/heads/main/js/kuaikaw.js",
       "catalog": "XPTV",
       "isAV": false,
-      "webSite": "https://www.kuaikaw.cn"
+      "webSite": "https://www.kuaikaw.cn",
+      "hasSearch": true,
+      "hasFilters": false
     },
     {
       "name": "壹影視",
@@ -256,7 +308,9 @@
       "ext": "https://ghp.xptvhelper.link/https://raw.githubusercontent.com/Yswag/xptv-extensions/refs/heads/main/js/yiys.js",
       "catalog": "XPTV",
       "isAV": false,
-      "webSite": "https://aleig4ah.yiys05.com"
+      "webSite": "https://aleig4ah.yiys05.com",
+      "hasSearch": true,
+      "hasFilters": true
     },
     {
       "name": "MISSAV",
@@ -265,7 +319,9 @@
       "ext": "https://ghp.xptvhelper.link/https://raw.githubusercontent.com/fangkuia/XPTV/refs/heads/main/js/missav.js",
       "catalog": "XPAV",
       "isAV": true,
-      "webSite": "https://missav.ai"
+      "webSite": "https://missav.ai",
+      "hasSearch": true,
+      "hasFilters": true
     },
     {
       "name": "EXPORNTOONS",
@@ -274,7 +330,9 @@
       "ext": "https://ghp.xptvhelper.link/https://raw.githubusercontent.com/fangkuia/XPTV/refs/heads/main/js/EXPORNTOONS.js",
       "catalog": "XPAV",
       "isAV": true,
-      "webSite": "https://exporntoons.net"
+      "webSite": "https://exporntoons.net",
+      "hasSearch": true,
+      "hasFilters": false
     },
     {
       "name": "SpankBang",
@@ -283,7 +341,9 @@
       "ext": "https://ghp.xptvhelper.link/https://raw.githubusercontent.com/fangkuia/XPTV/refs/heads/main/js/SpankBang.js",
       "catalog": "XPAV",
       "isAV": true,
-      "webSite": "https://jp.spankbang.com"
+      "webSite": "https://jp.spankbang.com",
+      "hasSearch": true,
+      "hasFilters": false
     },
     {
       "name": "麻豆社",
@@ -292,7 +352,9 @@
       "ext": "https://ghp.xptvhelper.link/https://raw.githubusercontent.com/Yswag/xptv-extensions/main/js/madou.js",
       "catalog": "XPAV",
       "isAV": true,
-      "webSite": "https://madou.club"
+      "webSite": "https://madou.club",
+      "hasSearch": true,
+      "hasFilters": false
     },
     {
       "name": "玩偶姐姐",
@@ -301,7 +363,9 @@
       "ext": "https://ghp.xptvhelper.link/https://raw.githubusercontent.com/Yswag/xptv-extensions/main/js/hkdoll.js",
       "catalog": "XPAV",
       "isAV": true,
-      "webSite": "https://hongkongdollvideo.com"
+      "webSite": "https://hongkongdollvideo.com",
+      "hasSearch": true,
+      "hasFilters": false
     },
     {
       "name": "Hanime1",
@@ -310,7 +374,9 @@
       "ext": "https://ghp.xptvhelper.link/https://raw.githubusercontent.com/fangkuia/XPTV/refs/heads/main/js/hanime.js",
       "catalog": "XPAV",
       "isAV": true,
-      "webSite": "https://hanime1.me"
+      "webSite": "https://hanime1.me",
+      "hasSearch": true,
+      "hasFilters": false
     },
     {
       "name": "秋名山見(live)",
@@ -319,7 +385,9 @@
       "ext": "https://ghp.xptvhelper.link/https://gist.githubusercontent.com/Yswag/d9f072b75dab5b1b107c523dd148eea3/raw/harunasan.js",
       "catalog": "XPAV",
       "isAV": true,
-      "webSite": "http://api.maiyoux.com:81"
+      "webSite": "http://api.maiyoux.com:81",
+      "hasSearch": false,
+      "hasFilters": false
     },
     {
       "name": "SupJav",
@@ -328,7 +396,9 @@
       "ext": "https://ghp.xptvhelper.link/https://raw.githubusercontent.com/fangkuia/XPTV/refs/heads/main/js/SupJav.js",
       "catalog": "XPAV",
       "isAV": true,
-      "webSite": "https://supjav.com/zh"
+      "webSite": "https://supjav.com/zh",
+      "hasSearch": true,
+      "hasFilters": false
     },
     {
       "name": "91jav (無海報)",
@@ -337,7 +407,9 @@
       "ext": "https://ghp.xptvhelper.link/https://raw.githubusercontent.com/Yswag/xptv-extensions/main/js/91jav.js",
       "catalog": "XPAV",
       "isAV": true,
-      "webSite": "https://jdkir.triutpw.cc"
+      "webSite": "https://jdkir.triutpw.cc",
+      "hasSearch": true,
+      "hasFilters": false
     },
     {
       "name": "hohoj",
@@ -346,7 +418,9 @@
       "ext": "https://ghp.xptvhelper.link/https://raw.githubusercontent.com/Yswag/xptv-extensions/main/js/hohoj.js",
       "catalog": "XPAV",
       "isAV": true,
-      "webSite": "https://hohoj.tv"
+      "webSite": "https://hohoj.tv",
+      "hasSearch": true,
+      "hasFilters": false
     },
     {
       "name": "KoreaPornMovie",
@@ -355,7 +429,9 @@
       "ext": "https://ghp.xptvhelper.link/https://raw.githubusercontent.com/fangkuia/XPTV/refs/heads/main/js/KoreaPornMovie.js",
       "catalog": "XPAV",
       "isAV": true,
-      "webSite": "https://koreanpornmovie.com"
+      "webSite": "https://koreanpornmovie.com",
+      "hasSearch": true,
+      "hasFilters": false
     },
     {
       "name": "pppHub",
@@ -364,7 +440,9 @@
       "ext": "https://ghp.xptvhelper.link/https://raw.githubusercontent.com/fangkuia/XPTV/refs/heads/main/js/ppp.js",
       "catalog": "XPAV",
       "isAV": true,
-      "webSite": "https://ppp.porn"
+      "webSite": "https://ppp.porn",
+      "hasSearch": true,
+      "hasFilters": false
     },
     {
       "name": "avtoday",
@@ -373,7 +451,9 @@
       "ext": "https://ghp.xptvhelper.link/https://raw.githubusercontent.com/Yswag/xptv-extensions/main/js/avtoday.js",
       "catalog": "XPAV",
       "isAV": true,
-      "webSite": "https://avtoday.io"
+      "webSite": "https://avtoday.io",
+      "hasSearch": true,
+      "hasFilters": false
     },
     {
       "name": "xHamster",
@@ -382,7 +462,9 @@
       "ext": "https://ghp.xptvhelper.link/https://raw.githubusercontent.com/Yswag/xptv-extensions/main/js/xhamster.js",
       "catalog": "XPAV",
       "isAV": true,
-      "webSite": "https://zh.xhamster.com"
+      "webSite": "https://zh.xhamster.com",
+      "hasSearch": true,
+      "hasFilters": false
     },
     {
       "name": "Pornhub",
@@ -391,7 +473,9 @@
       "ext": "https://ghp.xptvhelper.link/https://raw.githubusercontent.com/Yswag/xptv-extensions/main/js/pornhub.js",
       "catalog": "XPAV",
       "isAV": true,
-      "webSite": "https://cn.pornhub.com"
+      "webSite": "https://cn.pornhub.com",
+      "hasSearch": true,
+      "hasFilters": false
     },
     {
       "name": "jable",
@@ -400,7 +484,9 @@
       "ext": "https://ghp.xptvhelper.link/https://raw.githubusercontent.com/Yswag/xptv-extensions/main/js/jable.js",
       "catalog": "XPAV",
       "isAV": true,
-      "webSite": "https://jable.tv"
+      "webSite": "https://jable.tv",
+      "hasSearch": true,
+      "hasFilters": false
     },
     {
       "name": "桃花族",
@@ -409,7 +495,9 @@
       "ext": "https://ghp.xptvhelper.link/https://raw.githubusercontent.com/Yswag/xptv-extensions/main/js/taohuazu.js",
       "catalog": "XPAV",
       "isAV": true,
-      "webSite": "http://7340hsck.cc"
+      "webSite": "http://7340hsck.cc",
+      "hasSearch": true,
+      "hasFilters": false
     },
     {
       "name": "花都影視",
@@ -418,7 +506,9 @@
       "ext": "https://ghp.xptvhelper.link/https://raw.githubusercontent.com/Yswag/xptv-extensions/main/js/hdys.js",
       "catalog": "XPAV",
       "isAV": true,
-      "webSite": "https://hd.huaduys.org"
+      "webSite": "https://hd.huaduys.org",
+      "hasSearch": true,
+      "hasFilters": false
     },
     {
       "name": "肉视频",
@@ -427,7 +517,9 @@
       "ext": "https://ghp.xptvhelper.link/https://raw.githubusercontent.com/fangkuia/XPTV/refs/heads/main/js/rou.js",
       "catalog": "XPAV",
       "isAV": true,
-      "webSite": "https://rou.video"
+      "webSite": "https://rou.video",
+      "hasSearch": true,
+      "hasFilters": false
     },
     {
       "name": "Taiav",
@@ -436,7 +528,9 @@
       "ext": "https://ghp.xptvhelper.link/https://raw.githubusercontent.com/fangkuia/XPTV/refs/heads/main/js/taiav.js",
       "catalog": "XPAV",
       "isAV": true,
-      "webSite": "https://taiav.com"
+      "webSite": "https://taiav.com",
+      "hasSearch": true,
+      "hasFilters": false
     },
     {
       "name": "JavMove",
@@ -445,7 +539,9 @@
       "ext": "https://ghp.xptvhelper.link/https://raw.githubusercontent.com/fangkuia/XPTV/refs/heads/main/js/javmove.js",
       "catalog": "XPAV",
       "isAV": true,
-      "webSite": "https://javmove.com"
+      "webSite": "https://javmove.com",
+      "hasSearch": true,
+      "hasFilters": false
     },
     {
       "name": "有爱爱",
@@ -454,7 +550,9 @@
       "ext": "https://ghp.xptvhelper.link/https://raw.githubusercontent.com/fangkuia/XPTV/refs/heads/main/js/uua.js",
       "catalog": "XPAV",
       "isAV": true,
-      "webSite": "https://www.uaa.com"
+      "webSite": "https://www.uaa.com",
+      "hasSearch": true,
+      "hasFilters": false
     },
     {
       "name": "AVDB",
@@ -463,7 +561,9 @@
       "ext": "https://ghp.xptvhelper.link/https://raw.githubusercontent.com/Yswag/xptv-extensions/main/js/avdb.js",
       "catalog": "XPAV",
       "isAV": true,
-      "webSite": "https://avdbapi.com/api.php/provide/vod"
+      "webSite": "https://avdbapi.com/api.php/provide/vod",
+      "hasSearch": true,
+      "hasFilters": false
     },
     {
       "name": "KanAV",
@@ -472,7 +572,9 @@
       "ext": "https://ghp.xptvhelper.link/https://raw.githubusercontent.com/fangkuia/XPTV/refs/heads/main/js/kanav.js",
       "catalog": "XPAV",
       "isAV": true,
-      "webSite": "https://kanav.info"
+      "webSite": "https://kanav.info",
+      "hasSearch": true,
+      "hasFilters": false
     },
     {
       "name": "kbjfan",
@@ -481,7 +583,9 @@
       "ext": "https://ghp.xptvhelper.link/https://raw.githubusercontent.com/Yswag/xptv-extensions/main/js/kbjfan.js",
       "catalog": "XPAV",
       "isAV": true,
-      "webSite": "https://www.kbjfan.com"
+      "webSite": "https://www.kbjfan.com",
+      "hasSearch": true,
+      "hasFilters": false
     },
     {
       "name": "twivideo",
@@ -490,7 +594,9 @@
       "ext": "https://ghp.xptvhelper.link/https://raw.githubusercontent.com/Yswag/xptv-extensions/main/js/twivideo.js",
       "catalog": "XPAV",
       "isAV": true,
-      "webSite": "https://twivideo.net"
+      "webSite": "https://twivideo.net",
+      "hasSearch": true,
+      "hasFilters": false
     },
     {
       "name": "javxx",
@@ -499,7 +605,9 @@
       "ext": "https://ghp.xptvhelper.link/https://raw.githubusercontent.com/fangkuia/XPTV/refs/heads/main/js/javxx.js",
       "catalog": "XPAV",
       "isAV": true,
-      "webSite": "https://javxx.com"
+      "webSite": "https://javxx.com",
+      "hasSearch": true,
+      "hasFilters": false
     },
     {
       "name": "beeg",
@@ -508,7 +616,9 @@
       "ext": "https://ghp.xptvhelper.link/https://raw.githubusercontent.com/fangkuia/XPTV/refs/heads/main/js/beeg.js",
       "catalog": "XPAV",
       "isAV": true,
-      "webSite": "https://beeg.com"
+      "webSite": "https://beeg.com",
+      "hasSearch": true,
+      "hasFilters": false
     },
     {
       "name": "蜜桃臀",
@@ -517,7 +627,9 @@
       "ext": "https://ghp.xptvhelper.link/https://raw.githubusercontent.com/fangkuia/XPTV/refs/heads/main/js/mitaotun.js",
       "catalog": "XPAV",
       "isAV": true,
-      "webSite": "https://mitaotunbbx.xyz"
+      "webSite": "https://mitaotunbbx.xyz",
+      "hasSearch": true,
+      "hasFilters": false
     }
   ]
 }

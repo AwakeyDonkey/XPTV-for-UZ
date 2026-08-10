@@ -9,7 +9,7 @@
   },
   {
     "name": "XPTV - 哔滴影视",
-    "version": 2,
+    "version": 3,
     "remark": "XPTV 动态兼容适配器（实验性）",
     "webSite": "https://v.xl01.eu.cc",
     "api": "vod/js/xptv_bde4.js",
@@ -17,7 +17,7 @@
   },
   {
     "name": "XPTV - 欧乐🪜",
-    "version": 2,
+    "version": 3,
     "remark": "XPTV 动态兼容适配器（实验性）",
     "webSite": "https://api.olelive.com",
     "api": "vod/js/xptv_olevod.js",
@@ -25,7 +25,7 @@
   },
   {
     "name": "XPTV - 在线之家",
-    "version": 2,
+    "version": 3,
     "remark": "XPTV 动态兼容适配器（实验性）",
     "webSite": "https://www.zxzjhd.com",
     "api": "vod/js/xptv_zxzj.js",
@@ -33,7 +33,7 @@
   },
   {
     "name": "XPTV - LIBVIO",
-    "version": 2,
+    "version": 3,
     "remark": "XPTV 动态兼容适配器（实验性）",
     "webSite": "https://www.libvios.com",
     "api": "vod/js/xptv_libvio.js",
@@ -41,7 +41,7 @@
   },
   {
     "name": "XPTV - ギリギリ动漫",
-    "version": 2,
+    "version": 3,
     "remark": "XPTV 动态兼容适配器（实验性）",
     "webSite": "https://bgm.girigirilove.com",
     "api": "vod/js/xptv_ai.js",
@@ -49,7 +49,7 @@
   },
   {
     "name": "XPTV - 独播库",
-    "version": 2,
+    "version": 3,
     "remark": "XPTV 动态兼容适配器（实验性）",
     "webSite": "https://www.dbku.tv",
     "api": "vod/js/xptv_duboku.js",
@@ -57,7 +57,7 @@
   },
   {
     "name": "XPTV - AGE动漫",
-    "version": 2,
+    "version": 3,
     "remark": "XPTV 动态兼容适配器（实验性）",
     "webSite": "https://m.agedm.io/#/",
     "api": "vod/js/xptv_age.js",
@@ -65,7 +65,7 @@
   },
   {
     "name": "XPTV - 4k-av",
-    "version": 2,
+    "version": 3,
     "remark": "XPTV 动态兼容适配器（实验性）",
     "webSite": "https://4kmp.com",
     "api": "vod/js/xptv_4kav.js",
@@ -73,7 +73,7 @@
   },
   {
     "name": "XPTV - 韓劇看看",
-    "version": 2,
+    "version": 3,
     "remark": "XPTV 动态兼容适配器（实验性）",
     "webSite": "https://www.hanjukankan.com",
     "api": "vod/js/xptv_hjkk.js",
@@ -81,7 +81,7 @@
   },
   {
     "name": "XPTV - 金牌影院",
-    "version": 2,
+    "version": 3,
     "remark": "XPTV 动态兼容适配器（实验性）",
     "webSite": "https://www.jiabaide.cn",
     "api": "vod/js/xptv_jpyy.js",
@@ -89,7 +89,7 @@
   },
   {
     "name": "XPTV - 燒火電影",
-    "version": 2,
+    "version": 3,
     "remark": "XPTV 动态兼容适配器（实验性）",
     "webSite": "https://saohuo.tv",
     "api": "vod/js/xptv_saohuo.js",
@@ -97,7 +97,7 @@
   },
   {
     "name": "XPTV - NO視頻",
-    "version": 2,
+    "version": 3,
     "remark": "XPTV 动态兼容适配器（实验性）",
     "webSite": "https://www.novipnoad.net",
     "api": "vod/js/xptv_novipnoad.js",
@@ -105,7 +105,7 @@
   },
   {
     "name": "XPTV - 星芽短劇",
-    "version": 2,
+    "version": 3,
     "remark": "XPTV 动态兼容适配器（实验性）",
     "webSite": "https://app.whjzjx.cn",
     "api": "vod/js/xptv_xingya.js",
@@ -113,7 +113,7 @@
   },
   {
     "name": "XPTV - 瓜子",
-    "version": 2,
+    "version": 3,
     "remark": "XPTV 动态兼容适配器（实验性）",
     "webSite": "https://api.w32z7vtd.com",
     "api": "vod/js/xptv_guazi.js",
@@ -121,7 +121,7 @@
   },
   {
     "name": "XPTV - 愛壹帆",
-    "version": 2,
+    "version": 3,
     "remark": "XPTV 动态兼容适配器（实验性）",
     "webSite": "https://m10.iyf.tv",
     "api": "vod/js/xptv_iyftv.js",
@@ -129,7 +129,7 @@
   },
   {
     "name": "XPTV - 影视天堂",
-    "version": 2,
+    "version": 3,
     "remark": "XPTV 动态兼容适配器（实验性）",
     "webSite": "https://ysttv.com",
     "api": "vod/js/xptv_ystt.js",
@@ -137,7 +137,7 @@
   },
   {
     "name": "XPTV - 嗷嗚動漫",
-    "version": 2,
+    "version": 3,
     "remark": "XPTV 动态兼容适配器（实验性）",
     "webSite": "https://www.aowu.tv",
     "api": "vod/js/xptv_aowu.js",
@@ -145,7 +145,7 @@
   },
   {
     "name": "XPTV - 荐片",
-    "version": 2,
+    "version": 3,
     "remark": "XPTV 动态兼容适配器（实验性）",
     "webSite": "https://ev5356.970xw.com",
     "api": "vod/js/xptv_jianpian.js",
@@ -153,7 +153,7 @@
   },
   {
     "name": "XPTV - 人人",
-    "version": 2,
+    "version": 3,
     "remark": "XPTV 动态兼容适配器（实验性）",
     "webSite": "https://api.rrmj.plus",
     "api": "vod/js/xptv_rrmj.js",
@@ -161,7 +161,7 @@
   },
   {
     "name": "XPTV - anime1",
-    "version": 2,
+    "version": 3,
     "remark": "XPTV 动态兼容适配器（实验性）",
     "webSite": "https://anime1.me",
     "api": "vod/js/xptv_anime1.js",
@@ -169,7 +169,7 @@
   },
   {
     "name": "XPTV - 农民影视",
-    "version": 2,
+    "version": 3,
     "remark": "XPTV 动态兼容适配器（实验性）",
     "webSite": "https://vip.wwgz.cn:5200",
     "api": "vod/js/xptv_wwgz.js",
@@ -177,7 +177,7 @@
   },
   {
     "name": "XPTV - 七色番動漫",
-    "version": 2,
+    "version": 3,
     "remark": "XPTV 动态兼容适配器（实验性）",
     "webSite": "https://www.7sefun.top",
     "api": "vod/js/xptv_7sefun.js",
@@ -185,7 +185,7 @@
   },
   {
     "name": "XPTV - 茶杯狐",
-    "version": 2,
+    "version": 3,
     "remark": "XPTV 动态兼容适配器（实验性）",
     "webSite": "https://www.cupfox.ai",
     "api": "vod/js/xptv_cupfox.js",
@@ -193,7 +193,7 @@
   },
   {
     "name": "XPTV - 路漫漫",
-    "version": 2,
+    "version": 3,
     "remark": "XPTV 动态兼容适配器（实验性）",
     "webSite": "https://www.lmm85.com",
     "api": "vod/js/xptv_lmm85.js",
@@ -201,7 +201,7 @@
   },
   {
     "name": "XPTV - ppnix",
-    "version": 2,
+    "version": 3,
     "remark": "XPTV 动态兼容适配器（实验性）",
     "webSite": "https://www.ppnix.com",
     "api": "vod/js/xptv_ppnix.js",
@@ -209,7 +209,7 @@
   },
   {
     "name": "XPTV - 河馬短劇",
-    "version": 2,
+    "version": 3,
     "remark": "XPTV 动态兼容适配器（实验性）",
     "webSite": "https://www.kuaikaw.cn",
     "api": "vod/js/xptv_kuaikaw.js",
@@ -217,7 +217,7 @@
   },
   {
     "name": "XPTV - 壹影視",
-    "version": 2,
+    "version": 3,
     "remark": "XPTV 动态兼容适配器（实验性）",
     "webSite": "https://aleig4ah.yiys05.com",
     "api": "vod/js/xptv_yiys.js",
@@ -225,7 +225,7 @@
   },
   {
     "name": "XPAV - MISSAV",
-    "version": 2,
+    "version": 3,
     "remark": "XPAV 动态兼容适配器（实验性）",
     "webSite": "https://missav.ai",
     "api": "vod/js/xptv_miss.js",
@@ -233,7 +233,7 @@
   },
   {
     "name": "XPAV - EXPORNTOONS",
-    "version": 2,
+    "version": 3,
     "remark": "XPAV 动态兼容适配器（实验性）",
     "webSite": "https://exporntoons.net",
     "api": "vod/js/xptv_exporntoons.js",
@@ -241,7 +241,7 @@
   },
   {
     "name": "XPAV - SpankBang",
-    "version": 2,
+    "version": 3,
     "remark": "XPAV 动态兼容适配器（实验性）",
     "webSite": "https://jp.spankbang.com",
     "api": "vod/js/xptv_spankbang.js",
@@ -249,7 +249,7 @@
   },
   {
     "name": "XPAV - 麻豆社",
-    "version": 2,
+    "version": 3,
     "remark": "XPAV 动态兼容适配器（实验性）",
     "webSite": "https://madou.club",
     "api": "vod/js/xptv_madou.js",
@@ -257,7 +257,7 @@
   },
   {
     "name": "XPAV - 玩偶姐姐",
-    "version": 2,
+    "version": 3,
     "remark": "XPAV 动态兼容适配器（实验性）",
     "webSite": "https://hongkongdollvideo.com",
     "api": "vod/js/xptv_hkdoll.js",
@@ -265,7 +265,7 @@
   },
   {
     "name": "XPAV - Hanime1",
-    "version": 2,
+    "version": 3,
     "remark": "XPAV 动态兼容适配器（实验性）",
     "webSite": "https://hanime1.me",
     "api": "vod/js/xptv_hanime1.js",
@@ -273,7 +273,7 @@
   },
   {
     "name": "XPAV - 秋名山見(live)",
-    "version": 2,
+    "version": 3,
     "remark": "XPAV 动态兼容适配器（实验性）",
     "webSite": "http://api.maiyoux.com:81",
     "api": "vod/js/xptv_harunasan.js",
@@ -281,7 +281,7 @@
   },
   {
     "name": "XPAV - SupJav",
-    "version": 2,
+    "version": 3,
     "remark": "XPAV 动态兼容适配器（实验性）",
     "webSite": "https://supjav.com/zh",
     "api": "vod/js/xptv_supjav.js",
@@ -289,7 +289,7 @@
   },
   {
     "name": "XPAV - 91jav (無海報)",
-    "version": 2,
+    "version": 3,
     "remark": "XPAV 动态兼容适配器（实验性）",
     "webSite": "https://jdkir.triutpw.cc",
     "api": "vod/js/xptv_91jav.js",
@@ -297,7 +297,7 @@
   },
   {
     "name": "XPAV - hohoj",
-    "version": 2,
+    "version": 3,
     "remark": "XPAV 动态兼容适配器（实验性）",
     "webSite": "https://hohoj.tv",
     "api": "vod/js/xptv_hohoj.js",
@@ -305,7 +305,7 @@
   },
   {
     "name": "XPAV - KoreaPornMovie",
-    "version": 2,
+    "version": 3,
     "remark": "XPAV 动态兼容适配器（实验性）",
     "webSite": "https://koreanpornmovie.com",
     "api": "vod/js/xptv_kpm.js",
@@ -313,7 +313,7 @@
   },
   {
     "name": "XPAV - pppHub",
-    "version": 2,
+    "version": 3,
     "remark": "XPAV 动态兼容适配器（实验性）",
     "webSite": "https://ppp.porn",
     "api": "vod/js/xptv_ppron.js",
@@ -321,7 +321,7 @@
   },
   {
     "name": "XPAV - avtoday",
-    "version": 2,
+    "version": 3,
     "remark": "XPAV 动态兼容适配器（实验性）",
     "webSite": "https://avtoday.io",
     "api": "vod/js/xptv_avtoday.js",
@@ -329,7 +329,7 @@
   },
   {
     "name": "XPAV - xHamster",
-    "version": 2,
+    "version": 3,
     "remark": "XPAV 动态兼容适配器（实验性）",
     "webSite": "https://zh.xhamster.com",
     "api": "vod/js/xptv_xhamster.js",
@@ -337,7 +337,7 @@
   },
   {
     "name": "XPAV - Pornhub",
-    "version": 2,
+    "version": 3,
     "remark": "XPAV 动态兼容适配器（实验性）",
     "webSite": "https://cn.pornhub.com",
     "api": "vod/js/xptv_pornhub.js",
@@ -345,7 +345,7 @@
   },
   {
     "name": "XPAV - jable",
-    "version": 2,
+    "version": 3,
     "remark": "XPAV 动态兼容适配器（实验性）",
     "webSite": "https://jable.tv",
     "api": "vod/js/xptv_jable.js",
@@ -353,7 +353,7 @@
   },
   {
     "name": "XPAV - 桃花族",
-    "version": 2,
+    "version": 3,
     "remark": "XPAV 动态兼容适配器（实验性）",
     "webSite": "http://7340hsck.cc",
     "api": "vod/js/xptv_taohuazu.js",
@@ -361,7 +361,7 @@
   },
   {
     "name": "XPAV - 花都影視",
-    "version": 2,
+    "version": 3,
     "remark": "XPAV 动态兼容适配器（实验性）",
     "webSite": "https://hd.huaduys.org",
     "api": "vod/js/xptv_hdys.js",
@@ -369,7 +369,7 @@
   },
   {
     "name": "XPAV - 肉视频",
-    "version": 2,
+    "version": 3,
     "remark": "XPAV 动态兼容适配器（实验性）",
     "webSite": "https://rou.video",
     "api": "vod/js/xptv_rou.js",
@@ -377,7 +377,7 @@
   },
   {
     "name": "XPAV - Taiav",
-    "version": 2,
+    "version": 3,
     "remark": "XPAV 动态兼容适配器（实验性）",
     "webSite": "https://taiav.com",
     "api": "vod/js/xptv_taiav.js",
@@ -385,7 +385,7 @@
   },
   {
     "name": "XPAV - JavMove",
-    "version": 2,
+    "version": 3,
     "remark": "XPAV 动态兼容适配器（实验性）",
     "webSite": "https://javmove.com",
     "api": "vod/js/xptv_javmove.js",
@@ -393,7 +393,7 @@
   },
   {
     "name": "XPAV - 有爱爱",
-    "version": 2,
+    "version": 3,
     "remark": "XPAV 动态兼容适配器（实验性）",
     "webSite": "https://www.uaa.com",
     "api": "vod/js/xptv_uaa.js",
@@ -401,7 +401,7 @@
   },
   {
     "name": "XPAV - AVDB",
-    "version": 2,
+    "version": 3,
     "remark": "XPAV 动态兼容适配器（实验性）",
     "webSite": "https://avdbapi.com/api.php/provide/vod",
     "api": "vod/js/xptv_avdb.js",
@@ -409,7 +409,7 @@
   },
   {
     "name": "XPAV - KanAV",
-    "version": 2,
+    "version": 3,
     "remark": "XPAV 动态兼容适配器（实验性）",
     "webSite": "https://kanav.info",
     "api": "vod/js/xptv_kanav.js",
@@ -417,7 +417,7 @@
   },
   {
     "name": "XPAV - kbjfan",
-    "version": 2,
+    "version": 3,
     "remark": "XPAV 动态兼容适配器（实验性）",
     "webSite": "https://www.kbjfan.com",
     "api": "vod/js/xptv_kbjfan.js",
@@ -425,7 +425,7 @@
   },
   {
     "name": "XPAV - twivideo",
-    "version": 2,
+    "version": 3,
     "remark": "XPAV 动态兼容适配器（实验性）",
     "webSite": "https://twivideo.net",
     "api": "vod/js/xptv_twivideo.js",
@@ -433,7 +433,7 @@
   },
   {
     "name": "XPAV - javxx",
-    "version": 2,
+    "version": 3,
     "remark": "XPAV 动态兼容适配器（实验性）",
     "webSite": "https://javxx.com",
     "api": "vod/js/xptv_javxx.js",
@@ -441,7 +441,7 @@
   },
   {
     "name": "XPAV - beeg",
-    "version": 2,
+    "version": 3,
     "remark": "XPAV 动态兼容适配器（实验性）",
     "webSite": "https://beeg.com",
     "api": "vod/js/xptv_beeg.js",
@@ -449,7 +449,7 @@
   },
   {
     "name": "XPAV - 蜜桃臀",
-    "version": 2,
+    "version": 3,
     "remark": "XPAV 动态兼容适配器（实验性）",
     "webSite": "https://mitaotunbbx.xyz",
     "api": "vod/js/xptv_mitaotun.js",

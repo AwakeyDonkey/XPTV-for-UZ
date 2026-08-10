@@ -13,6 +13,10 @@ if (!Array.isArray(local)) errors.push('local.json must be an array')
 if (!Array.isArray(env)) errors.push('env.json must be an array')
 if (!Array.isArray(sources.sites)) errors.push('sources.json sites must be an array')
 if (local.length !== sources.sites.length + 1) errors.push(`source count mismatch: ${sources.sites.length} upstream + 1 diagnostic vs ${local.length} entries`)
+for (const source of sources.sites || []) {
+  if (typeof source.hasSearch !== 'boolean') errors.push(`missing search capability metadata: ${source.name}`)
+  if (typeof source.hasFilters !== 'boolean') errors.push(`missing filter capability metadata: ${source.name}`)
+}
 
 const names = new Set()
 for (const item of local) {
@@ -29,6 +33,12 @@ for (const item of local) {
   try { new vm.Script(code, { filename: item.api }) } catch (error) { errors.push(`${item.api}: ${error.message}`) }
   for (const fn of ['getClassList', 'getSubclassList', 'getVideoList', 'getSubclassVideoList', 'getVideoDetail', 'getVideoPlayUrl', 'searchVideo']) {
     if (!new RegExp(`async function ${fn}\\b`).test(code)) errors.push(`${item.api}: missing ${fn}`)
+  }
+  if (item.api.startsWith('vod/js/xptv_')) {
+    if (item.version !== 3) errors.push(`${item.api}: expected adapter version 3`)
+    for (const helper of ['xptvFilterTitles', 'xptvFilterValue', 'XPTV_HAS_SEARCH', 'XPTV_HAS_FILTERS']) {
+      if (!code.includes(helper)) errors.push(`${item.api}: missing v1.2 helper ${helper}`)
+    }
   }
 }
 

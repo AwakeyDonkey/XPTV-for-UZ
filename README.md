@@ -6,10 +6,22 @@
 
 ## 订阅地址
 
-仓库发布后，把下面地址中的 `OWNER/REPO` 换成你的仓库：
+v1.2 固定版本：
 
 ```text
-https://github.com/OWNER/REPO/releases/download/uz-latest/XPTV-for-UZ.zip
+https://github.com/AwakeyDonkey/XPTV-for-UZ/releases/download/v1.2.0/XPTV-for-UZ.zip
+```
+
+最新版仍可使用：
+
+```text
+https://github.com/AwakeyDonkey/XPTV-for-UZ/releases/download/uz-latest/XPTV-for-UZ.zip
+```
+
+如需回退，v1.1.1 固定版本保留在：
+
+```text
+https://github.com/AwakeyDonkey/XPTV-for-UZ/releases/download/v1.1.1/XPTV-for-UZ.zip
 ```
 
 在 UZ 中打开：`设置 → 数据管理 → 订阅 → +`，粘贴上述 URL。
@@ -19,6 +31,7 @@ https://github.com/OWNER/REPO/releases/download/uz-latest/XPTV-for-UZ.zip
 - `sources.json` 保存两个上游订阅及合并后的源快照。
 - `scripts/sync.mjs` 每次通过代理订阅同步 XPTV 和 XPAV 的 `type:3` JavaScript 源。
 - 同步时从每个 JS 的 `appConfig.site`、`SITE` 或配置字段提取真实网站主页，并写入 UZ type:101 必需的 `webSite`。
+- v1.2 将 XPTV `search()` 映射到 UZ `searchVideo()`，并把 XPTV `getCards()` 返回的筛选项转换为 UZ 二级分类筛选。
 - `vod/js/xptv_*.js` 在 UZ 运行时下载相应 XPTV JS，并提供 `$fetch`、Cheerio、Crypto、`$html` 等兼容能力。
 - GitHub Actions 每天构建一次，并覆盖固定 `uz-latest` Release 中的 ZIP，订阅 URL 保持不变。
 - `诊断 - UZ 兼容层状态` 不访问网络；如果它也显示“暂无数据”，问题不在上游订阅源。
