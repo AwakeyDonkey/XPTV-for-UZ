@@ -6,7 +6,7 @@ import { fileURLToPath } from 'node:url'
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const { sites } = JSON.parse(fs.readFileSync(path.join(root, 'sources.json'), 'utf8'))
 const knownRuntimeNames = new Set([
-  'createCheerio', 'createCryptoJS', 'createJSEncrypt', '$fetch', '$html', '$cache', '$print', '$utils', 'jsonify', 'argsify',
+  'createCheerio', 'createCryptoJS', 'createJSEncrypt', 'loadJSEncrypt', '$fetch', '$html', '$cache', '$print', '$utils', 'jsonify', 'argsify',
 ])
 const discovered = new Set()
 const identifierSites = new Map()
@@ -20,7 +20,7 @@ for (const site of sites) {
     const code = await response.text()
     if (!code || /<html/i.test(code)) throw new Error('not JavaScript')
     new vm.Script(code, { filename: site.ext })
-    for (const match of code.matchAll(/create[A-Z]\w*|\$[A-Za-z_]\w*/g)) {
+    for (const match of code.matchAll(/(?:create|load)[A-Z]\w*|\$[A-Za-z_]\w*/g)) {
       discovered.add(match[0])
       if (!identifierSites.has(match[0])) identifierSites.set(match[0], new Set())
       identifierSites.get(match[0]).add(site.name)

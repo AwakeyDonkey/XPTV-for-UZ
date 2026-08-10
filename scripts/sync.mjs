@@ -6,6 +6,42 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const sourcesPath = path.join(root, 'sources.json')
 const sources = JSON.parse(fs.readFileSync(sourcesPath, 'utf8'))
 const shouldFetch = !process.argv.includes('--offline')
+const previousSites = Array.isArray(sources.sites) ? sources.sites : []
+const previousWebSites = new Map(previousSites.map((site) => [`${site.catalog}:${site.api || site.name}`, site.webSite || '']))
+const websiteOverrides = {
+  csp_jpyy: 'https://www.jiabaide.cn',
+  csp_guazi: 'https://api.w32z7vtd.com',
+  csp_javxx: 'https://javxx.com',
+}
+
+function extractWebsite(code) {
+  const patterns = [
+    /["']?site["']?\s*:\s*[`"'](https?:\/\/[^`"']+)[`"']/i,
+    /["']?site["']?\s*:\s*[^,\n}]*?[`"'](https?:\/\/[^`"']+)[`"']/i,
+    /\bSITE\s*=\s*[`"'](https?:\/\/[^`"']+)[`"']/,
+    /\b(?:webSite|baseUrl|baseURL|base_url)\s*[:=]\s*[`"'](https?:\/\/[^`"']+)[`"']/i,
+  ]
+  for (const pattern of patterns) {
+    const match = code.match(pattern)
+    if (match) return match[1]
+  }
+  return ''
+}
+
+async function addWebsite(site) {
+  const key = `${site.catalog}:${site.api || site.name}`
+  let webSite = websiteOverrides[site.api] || previousWebSites.get(key) || ''
+  try {
+    const response = await fetch(site.ext, { headers: { 'User-Agent': 'XPTV-for-UZ-website-scan/1.0' } })
+    if (!response.ok) throw new Error(`HTTP ${response.status}`)
+    webSite = extractWebsite(await response.text()) || webSite
+  } catch (error) {
+    if (!webSite) throw new Error(`${site.catalog} - ${site.name}: website resolution failed (${error.message})`)
+    console.warn(`${site.catalog} - ${site.name}: kept cached/override website (${error.message})`)
+  }
+  if (!webSite) throw new Error(`${site.catalog} - ${site.name}: website is empty`)
+  return { ...site, webSite }
+}
 
 if (shouldFetch) {
   try {
@@ -31,12 +67,13 @@ if (shouldFetch) {
     }))
     const merged = catalogs.flat()
     const seen = new Set()
-    sources.sites = merged.filter((site) => {
+    const uniqueSites = merged.filter((site) => {
       const key = `${site.catalog}:${site.api || site.name}:${site.ext}`
       if (seen.has(key)) return false
       seen.add(key)
       return true
     })
+    sources.sites = await Promise.all(uniqueSites.map(addWebsite))
     sources.syncedAt = new Date().toISOString()
     fs.writeFileSync(sourcesPath, `${JSON.stringify(sources, null, 2)}\n`)
   } catch (error) {
@@ -61,7 +98,7 @@ const jsString = (value) => JSON.stringify(String(value))
 
 const adapter = (site, slug) => `// ignore
 //@name:${site.catalog || 'XPTV'} - ${site.name}
-//@webSite:${site.ext}
+//@webSite:${site.webSite}
 //@version:1
 //@remark:XPTV 动态兼容适配器；首次使用需要联网加载原始源
 //@isAV:${site.isAV ? 1 : 0}
@@ -177,12 +214,13 @@ async function xptvLoadRuntime() {
       if (typeof Encrypt !== 'undefined' && Encrypt.JSEncrypt) return new Encrypt.JSEncrypt()
       throw new Error('JSEncrypt is not available in this UZ build')
     }
+    const loadJSEncrypt = createJSEncrypt
     const jsonify = (value) => JSON.stringify(value)
     const argsify = (value) => xptvParse(value)
     const $print = function () {}
     const AsyncFunction = Object.getPrototypeOf(async function () {}).constructor
     const factory = new AsyncFunction(
-      'createCheerio', 'createCryptoJS', 'createJSEncrypt', '$fetch', '$html', '$cache', '$print', '$utils', 'jsonify', 'argsify',
+      'createCheerio', 'createCryptoJS', 'createJSEncrypt', 'loadJSEncrypt', '$config_str', '$fetch', '$html', '$cache', '$print', '$utils', 'jsonify', 'argsify',
       sourceCode + '\\n;return {' +
         'getConfig: typeof getConfig === "function" ? getConfig : null,' +
         'getCards: typeof getCards === "function" ? getCards : null,' +
@@ -191,7 +229,7 @@ async function xptvLoadRuntime() {
         'search: typeof search === "function" ? search : null' +
       '}'
     )
-    return factory(createCheerio, createCryptoJS, createJSEncrypt, $fetch, $html, $cache, $print, $utils, jsonify, argsify)
+    return factory(createCheerio, createCryptoJS, createJSEncrypt, loadJSEncrypt, '{}', $fetch, $html, $cache, $print, $utils, jsonify, argsify)
   })()
   return xptvRuntimePromise
 }
@@ -305,6 +343,7 @@ const local = [{
   name: '诊断 - UZ 兼容层状态',
   version: 1,
   remark: '无需联网；用于确认订阅包和 UZ type:101 扩展运行是否正常',
+  webSite: 'https://github.com/AwakeyDonkey/XPTV-for-UZ',
   api: 'vod/js/diagnostic.js',
   type: 101,
 }]
@@ -317,6 +356,7 @@ sources.sites.forEach((site, index) => {
     name: `${site.catalog || 'XPTV'} - ${site.name}`,
     version: 1,
     remark: `${site.catalog || 'XPTV'} 动态兼容适配器（实验性）`,
+    webSite: site.webSite,
     api: `vod/js/${fileName}`,
     type: 101,
   })

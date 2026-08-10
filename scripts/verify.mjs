@@ -17,6 +17,7 @@ if (local.length !== sources.sites.length + 1) errors.push(`source count mismatc
 const names = new Set()
 for (const item of local) {
   if (!item.name || item.type !== 101 || !item.api) errors.push(`invalid local.json item: ${JSON.stringify(item)}`)
+  if (typeof item.webSite !== 'string' || !/^https?:\/\//.test(item.webSite)) errors.push(`missing/invalid webSite: ${item.name}`)
   if (names.has(item.name)) errors.push(`duplicate name: ${item.name}`)
   names.add(item.name)
   const file = path.join(root, item.api)

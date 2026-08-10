@@ -1,6 +1,6 @@
 // ignore
 //@name:XPTV - anime1
-//@webSite:https://ghp.xptvhelper.link/https://raw.githubusercontent.com/Yswag/xptv-extensions/refs/heads/main/js/anime1.js
+//@webSite:https://anime1.me
 //@version:1
 //@remark:XPTV 动态兼容适配器；首次使用需要联网加载原始源
 //@isAV:0
@@ -116,12 +116,13 @@ async function xptvLoadRuntime() {
       if (typeof Encrypt !== 'undefined' && Encrypt.JSEncrypt) return new Encrypt.JSEncrypt()
       throw new Error('JSEncrypt is not available in this UZ build')
     }
+    const loadJSEncrypt = createJSEncrypt
     const jsonify = (value) => JSON.stringify(value)
     const argsify = (value) => xptvParse(value)
     const $print = function () {}
     const AsyncFunction = Object.getPrototypeOf(async function () {}).constructor
     const factory = new AsyncFunction(
-      'createCheerio', 'createCryptoJS', 'createJSEncrypt', '$fetch', '$html', '$cache', '$print', '$utils', 'jsonify', 'argsify',
+      'createCheerio', 'createCryptoJS', 'createJSEncrypt', 'loadJSEncrypt', '$config_str', '$fetch', '$html', '$cache', '$print', '$utils', 'jsonify', 'argsify',
       sourceCode + '\n;return {' +
         'getConfig: typeof getConfig === "function" ? getConfig : null,' +
         'getCards: typeof getCards === "function" ? getCards : null,' +
@@ -130,7 +131,7 @@ async function xptvLoadRuntime() {
         'search: typeof search === "function" ? search : null' +
       '}'
     )
-    return factory(createCheerio, createCryptoJS, createJSEncrypt, $fetch, $html, $cache, $print, $utils, jsonify, argsify)
+    return factory(createCheerio, createCryptoJS, createJSEncrypt, loadJSEncrypt, '{}', $fetch, $html, $cache, $print, $utils, jsonify, argsify)
   })()
   return xptvRuntimePromise
 }
