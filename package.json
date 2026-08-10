@@ -1,0 +1,16 @@
+{
+  "name": "xptv-for-uz",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "sync": "node scripts/sync.mjs",
+    "audit:upstream": "node scripts/audit-upstream.mjs",
+    "verify": "node scripts/verify.mjs",
+    "build": "node scripts/sync.mjs && node scripts/verify.mjs && node scripts/package.mjs",
+    "test": "node scripts/verify.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

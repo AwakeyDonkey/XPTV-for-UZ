@@ -1,0 +1,191 @@
+[
+  {
+    "name": "XPTV - 哔滴影视",
+    "version": 1,
+    "remark": "XPTV 动态兼容适配器（实验性）",
+    "api": "vod/js/xptv_bde4.js",
+    "type": 101
+  },
+  {
+    "name": "XPTV - 欧乐🪜",
+    "version": 1,
+    "remark": "XPTV 动态兼容适配器（实验性）",
+    "api": "vod/js/xptv_olevod.js",
+    "type": 101
+  },
+  {
+    "name": "XPTV - 在线之家",
+    "version": 1,
+    "remark": "XPTV 动态兼容适配器（实验性）",
+    "api": "vod/js/xptv_zxzj.js",
+    "type": 101
+  },
+  {
+    "name": "XPTV - LIBVIO",
+    "version": 1,
+    "remark": "XPTV 动态兼容适配器（实验性）",
+    "api": "vod/js/xptv_libvio.js",
+    "type": 101
+  },
+  {
+    "name": "XPTV - ギリギリ动漫",
+    "version": 1,
+    "remark": "XPTV 动态兼容适配器（实验性）",
+    "api": "vod/js/xptv_ai.js",
+    "type": 101
+  },
+  {
+    "name": "XPTV - 独播库",
+    "version": 1,
+    "remark": "XPTV 动态兼容适配器（实验性）",
+    "api": "vod/js/xptv_duboku.js",
+    "type": 101
+  },
+  {
+    "name": "XPTV - AGE动漫",
+    "version": 1,
+    "remark": "XPTV 动态兼容适配器（实验性）",
+    "api": "vod/js/xptv_age.js",
+    "type": 101
+  },
+  {
+    "name": "XPTV - 4k-av",
+    "version": 1,
+    "remark": "XPTV 动态兼容适配器（实验性）",
+    "api": "vod/js/xptv_4kav.js",
+    "type": 101
+  },
+  {
+    "name": "XPTV - 韓劇看看",
+    "version": 1,
+    "remark": "XPTV 动态兼容适配器（实验性）",
+    "api": "vod/js/xptv_hjkk.js",
+    "type": 101
+  },
+  {
+    "name": "XPTV - 金牌影院",
+    "version": 1,
+    "remark": "XPTV 动态兼容适配器（实验性）",
+    "api": "vod/js/xptv_jpyy.js",
+    "type": 101
+  },
+  {
+    "name": "XPTV - 燒火電影",
+    "version": 1,
+    "remark": "XPTV 动态兼容适配器（实验性）",
+    "api": "vod/js/xptv_saohuo.js",
+    "type": 101
+  },
+  {
+    "name": "XPTV - NO視頻",
+    "version": 1,
+    "remark": "XPTV 动态兼容适配器（实验性）",
+    "api": "vod/js/xptv_novipnoad.js",
+    "type": 101
+  },
+  {
+    "name": "XPTV - 星芽短劇",
+    "version": 1,
+    "remark": "XPTV 动态兼容适配器（实验性）",
+    "api": "vod/js/xptv_xingya.js",
+    "type": 101
+  },
+  {
+    "name": "XPTV - 瓜子",
+    "version": 1,
+    "remark": "XPTV 动态兼容适配器（实验性）",
+    "api": "vod/js/xptv_guazi.js",
+    "type": 101
+  },
+  {
+    "name": "XPTV - 愛壹帆",
+    "version": 1,
+    "remark": "XPTV 动态兼容适配器（实验性）",
+    "api": "vod/js/xptv_iyftv.js",
+    "type": 101
+  },
+  {
+    "name": "XPTV - 影视天堂",
+    "version": 1,
+    "remark": "XPTV 动态兼容适配器（实验性）",
+    "api": "vod/js/xptv_ystt.js",
+    "type": 101
+  },
+  {
+    "name": "XPTV - 嗷嗚動漫",
+    "version": 1,
+    "remark": "XPTV 动态兼容适配器（实验性）",
+    "api": "vod/js/xptv_aowu.js",
+    "type": 101
+  },
+  {
+    "name": "XPTV - 荐片",
+    "version": 1,
+    "remark": "XPTV 动态兼容适配器（实验性）",
+    "api": "vod/js/xptv_jianpian.js",
+    "type": 101
+  },
+  {
+    "name": "XPTV - 人人",
+    "version": 1,
+    "remark": "XPTV 动态兼容适配器（实验性）",
+    "api": "vod/js/xptv_rrmj.js",
+    "type": 101
+  },
+  {
+    "name": "XPTV - anime1",
+    "version": 1,
+    "remark": "XPTV 动态兼容适配器（实验性）",
+    "api": "vod/js/xptv_anime1.js",
+    "type": 101
+  },
+  {
+    "name": "XPTV - 农民影视",
+    "version": 1,
+    "remark": "XPTV 动态兼容适配器（实验性）",
+    "api": "vod/js/xptv_wwgz.js",
+    "type": 101
+  },
+  {
+    "name": "XPTV - 七色番動漫",
+    "version": 1,
+    "remark": "XPTV 动态兼容适配器（实验性）",
+    "api": "vod/js/xptv_7sefun.js",
+    "type": 101
+  },
+  {
+    "name": "XPTV - 茶杯狐",
+    "version": 1,
+    "remark": "XPTV 动态兼容适配器（实验性）",
+    "api": "vod/js/xptv_cupfox.js",
+    "type": 101
+  },
+  {
+    "name": "XPTV - 路漫漫",
+    "version": 1,
+    "remark": "XPTV 动态兼容适配器（实验性）",
+    "api": "vod/js/xptv_lmm85.js",
+    "type": 101
+  },
+  {
+    "name": "XPTV - ppnix",
+    "version": 1,
+    "remark": "XPTV 动态兼容适配器（实验性）",
+    "api": "vod/js/xptv_ppnix.js",
+    "type": 101
+  },
+  {
+    "name": "XPTV - 河馬短劇",
+    "version": 1,
+    "remark": "XPTV 动态兼容适配器（实验性）",
+    "api": "vod/js/xptv_kuaikaw.js",
+    "type": 101
+  },
+  {
+    "name": "XPTV - 壹影視",
+    "version": 1,
+    "remark": "XPTV 动态兼容适配器（实验性）",
+    "api": "vod/js/xptv_yiys.js",
+    "type": 101
+  }
+]
