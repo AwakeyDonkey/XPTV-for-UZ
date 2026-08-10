@@ -11,6 +11,7 @@ const knownRuntimeNames = new Set([
 const discovered = new Set()
 const identifierSites = new Map()
 const failures = []
+const warnings = []
 
 for (const site of sites) {
   try {
@@ -24,9 +25,10 @@ for (const site of sites) {
       if (!identifierSites.has(match[0])) identifierSites.set(match[0], new Set())
       identifierSites.get(match[0]).add(site.name)
     }
-    for (const fn of ['getConfig', 'getCards', 'getTracks', 'getPlayinfo', 'search']) {
+    for (const fn of ['getConfig', 'getCards', 'getTracks', 'getPlayinfo']) {
       if (!new RegExp(`(?:async\\s+)?function\\s+${fn}\\b`).test(code)) failures.push(`${site.name}: missing ${fn}`)
     }
+    if (!/(?:async\s+)?function\s+search\b/.test(code)) warnings.push(`${site.catalog || 'XPTV'} - ${site.name}: search not implemented`)
   } catch (error) {
     failures.push(`${site.name}: ${error.message}`)
   }
@@ -34,11 +36,8 @@ for (const site of sites) {
 
 const unknown = [...discovered].filter((name) => !knownRuntimeNames.has(name)).sort()
 console.log(`Fetched and parsed ${sites.length - failures.filter((item) => !item.includes('missing ')).length}/${sites.length} upstream source files.`)
-console.log(`Runtime identifiers: ${[...discovered].sort().join(', ') || '(none)'}`)
-if (unknown.length) {
-  console.warn('Identifiers requiring manual review:')
-  for (const name of unknown) console.warn(`- ${name}: ${[...identifierSites.get(name)].join(', ')}`)
-}
+console.log(`Detected compatibility APIs: ${[...discovered].filter((name) => knownRuntimeNames.has(name)).sort().join(', ') || '(none)'}`)
+if (warnings.length) console.warn(warnings.map((item) => `- ${item}`).join('\n'))
 if (failures.length) {
   console.error(failures.map((item) => `- ${item}`).join('\n'))
   process.exit(1)

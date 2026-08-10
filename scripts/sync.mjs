@@ -9,17 +9,34 @@ const shouldFetch = !process.argv.includes('--offline')
 
 if (shouldFetch) {
   try {
-    const response = await fetch(sources.upstream, {
-      headers: { 'User-Agent': 'XPTV-for-UZ-sync/1.0' },
+    if (!Array.isArray(sources.upstreams) || sources.upstreams.length === 0) throw new Error('upstreams[] is empty')
+    const catalogs = await Promise.all(sources.upstreams.map(async (item) => {
+      let response
+      let primaryError = ''
+      try {
+        response = await fetch(item.url, { headers: { 'User-Agent': 'XPTV-for-UZ-sync/2.0' } })
+        if (!response.ok) throw new Error(`HTTP ${response.status}`)
+      } catch (error) {
+        primaryError = error.message
+        if (!item.fallbackUrl) throw error
+        response = await fetch(item.fallbackUrl, { headers: { 'User-Agent': 'XPTV-for-UZ-sync/2.0' } })
+        if (!response.ok) throw new Error(`${item.catalog}: primary ${primaryError}; fallback HTTP ${response.status}`)
+        console.warn(`${item.catalog}: primary proxy unavailable (${primaryError}); used canonical fallback`)
+      }
+      const upstream = await response.json()
+      if (!Array.isArray(upstream.sites) || upstream.sites.length === 0) throw new Error(`${item.catalog}: sites[] is empty`)
+      return upstream.sites
+        .filter((site) => site && site.type === 3 && typeof site.ext === 'string' && site.ext.startsWith('http'))
+        .map((site) => ({ ...site, catalog: item.catalog, isAV: Boolean(item.isAV) }))
+    }))
+    const merged = catalogs.flat()
+    const seen = new Set()
+    sources.sites = merged.filter((site) => {
+      const key = `${site.catalog}:${site.api || site.name}:${site.ext}`
+      if (seen.has(key)) return false
+      seen.add(key)
+      return true
     })
-    if (!response.ok) throw new Error(`HTTP ${response.status}`)
-    const upstream = await response.json()
-    if (!Array.isArray(upstream.sites) || upstream.sites.length === 0) {
-      throw new Error('upstream sites[] is empty')
-    }
-    sources.sites = upstream.sites.filter(
-      (site) => site && site.type === 3 && typeof site.ext === 'string' && site.ext.startsWith('http'),
-    )
     sources.syncedAt = new Date().toISOString()
     fs.writeFileSync(sourcesPath, `${JSON.stringify(sources, null, 2)}\n`)
   } catch (error) {
@@ -43,11 +60,11 @@ const slugify = (site, index) => {
 const jsString = (value) => JSON.stringify(String(value))
 
 const adapter = (site, slug) => `// ignore
-//@name:XPTV - ${site.name}
+//@name:${site.catalog || 'XPTV'} - ${site.name}
 //@webSite:${site.ext}
 //@version:1
 //@remark:XPTV 动态兼容适配器；首次使用需要联网加载原始源
-//@isAV:0
+//@isAV:${site.isAV ? 1 : 0}
 //@deprecated:0
 // ignore
 
@@ -284,16 +301,22 @@ async function searchVideo(args) {
 `
 
 const generated = []
-const local = []
+const local = [{
+  name: '诊断 - UZ 兼容层状态',
+  version: 1,
+  remark: '无需联网；用于确认订阅包和 UZ type:101 扩展运行是否正常',
+  api: 'vod/js/diagnostic.js',
+  type: 101,
+}]
 sources.sites.forEach((site, index) => {
   const slug = slugify(site, index)
   const fileName = `xptv_${slug}.js`
   generated.push(fileName)
   fs.writeFileSync(path.join(outputDir, fileName), adapter(site, slug))
   local.push({
-    name: `XPTV - ${site.name}`,
+    name: `${site.catalog || 'XPTV'} - ${site.name}`,
     version: 1,
-    remark: 'XPTV 动态兼容适配器（实验性）',
+    remark: `${site.catalog || 'XPTV'} 动态兼容适配器（实验性）`,
     api: `vod/js/${fileName}`,
     type: 101,
   })
@@ -306,4 +329,4 @@ for (const fileName of fs.readdirSync(outputDir)) {
 }
 
 fs.writeFileSync(path.join(root, 'local.json'), `${JSON.stringify(local, null, 2)}\n`)
-console.log(`Generated ${local.length} UZ adapters.`)
+console.log(`Generated ${sources.sites.length} UZ adapters plus 1 diagnostic source.`)

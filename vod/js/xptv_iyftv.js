@@ -1,6 +1,6 @@
 // ignore
 //@name:XPTV - 愛壹帆
-//@webSite:https://raw.githubusercontent.com/Yswag/xptv-extensions/main/js/iyftv.js
+//@webSite:https://ghp.xptvhelper.link/https://raw.githubusercontent.com/Yswag/xptv-extensions/main/js/iyftv.js
 //@version:1
 //@remark:XPTV 动态兼容适配器；首次使用需要联网加载原始源
 //@isAV:0
@@ -8,7 +8,7 @@
 // ignore
 
 const XPTV_SOURCE_NAME = "愛壹帆"
-const XPTV_SOURCE_URL = "https://raw.githubusercontent.com/Yswag/xptv-extensions/main/js/iyftv.js"
+const XPTV_SOURCE_URL = "https://ghp.xptvhelper.link/https://raw.githubusercontent.com/Yswag/xptv-extensions/main/js/iyftv.js"
 const XPTV_SOURCE_KEY = "iyftv"
 
 const appConfig = {

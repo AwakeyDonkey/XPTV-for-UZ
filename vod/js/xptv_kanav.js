@@ -1,15 +1,15 @@
 // ignore
-//@name:XPTV - 哔滴影视
-//@webSite:https://ghp.xptvhelper.link/https://raw.githubusercontent.com/fangkuia/XPTV/refs/heads/main/js/bdys.js
+//@name:XPAV - KanAV
+//@webSite:https://ghp.xptvhelper.link/https://raw.githubusercontent.com/fangkuia/XPTV/refs/heads/main/js/kanav.js
 //@version:1
 //@remark:XPTV 动态兼容适配器；首次使用需要联网加载原始源
-//@isAV:0
+//@isAV:1
 //@deprecated:0
 // ignore
 
-const XPTV_SOURCE_NAME = "哔滴影视"
-const XPTV_SOURCE_URL = "https://ghp.xptvhelper.link/https://raw.githubusercontent.com/fangkuia/XPTV/refs/heads/main/js/bdys.js"
-const XPTV_SOURCE_KEY = "bde4"
+const XPTV_SOURCE_NAME = "KanAV"
+const XPTV_SOURCE_URL = "https://ghp.xptvhelper.link/https://raw.githubusercontent.com/fangkuia/XPTV/refs/heads/main/js/kanav.js"
+const XPTV_SOURCE_KEY = "kanav"
 
 const appConfig = {
   _webSite: '',

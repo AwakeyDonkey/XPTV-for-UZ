@@ -1,6 +1,6 @@
 // ignore
 //@name:XPTV - NO視頻
-//@webSite:https://raw.githubusercontent.com/Yswag/xptv-extensions/main/js/novipnoad.js
+//@webSite:https://ghp.xptvhelper.link/https://raw.githubusercontent.com/Yswag/xptv-extensions/main/js/novipnoad.js
 //@version:1
 //@remark:XPTV 动态兼容适配器；首次使用需要联网加载原始源
 //@isAV:0
@@ -8,7 +8,7 @@
 // ignore
 
 const XPTV_SOURCE_NAME = "NO視頻"
-const XPTV_SOURCE_URL = "https://raw.githubusercontent.com/Yswag/xptv-extensions/main/js/novipnoad.js"
+const XPTV_SOURCE_URL = "https://ghp.xptvhelper.link/https://raw.githubusercontent.com/Yswag/xptv-extensions/main/js/novipnoad.js"
 const XPTV_SOURCE_KEY = "novipnoad"
 
 const appConfig = {

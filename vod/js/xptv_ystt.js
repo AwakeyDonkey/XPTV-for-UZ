@@ -1,6 +1,6 @@
 // ignore
 //@name:XPTV - 影视天堂
-//@webSite:https://raw.githubusercontent.com/fangkuia/XPTV/refs/heads/main/js/ystt.js
+//@webSite:https://ghp.xptvhelper.link/https://raw.githubusercontent.com/fangkuia/XPTV/refs/heads/main/js/ystt.js
 //@version:1
 //@remark:XPTV 动态兼容适配器；首次使用需要联网加载原始源
 //@isAV:0
@@ -8,7 +8,7 @@
 // ignore
 
 const XPTV_SOURCE_NAME = "影视天堂"
-const XPTV_SOURCE_URL = "https://raw.githubusercontent.com/fangkuia/XPTV/refs/heads/main/js/ystt.js"
+const XPTV_SOURCE_URL = "https://ghp.xptvhelper.link/https://raw.githubusercontent.com/fangkuia/XPTV/refs/heads/main/js/ystt.js"
 const XPTV_SOURCE_KEY = "ystt"
 
 const appConfig = {

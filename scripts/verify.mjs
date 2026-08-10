@@ -12,7 +12,7 @@ const errors = []
 if (!Array.isArray(local)) errors.push('local.json must be an array')
 if (!Array.isArray(env)) errors.push('env.json must be an array')
 if (!Array.isArray(sources.sites)) errors.push('sources.json sites must be an array')
-if (local.length !== sources.sites.length) errors.push(`source count mismatch: ${sources.sites.length} upstream vs ${local.length} adapters`)
+if (local.length !== sources.sites.length + 1) errors.push(`source count mismatch: ${sources.sites.length} upstream + 1 diagnostic vs ${local.length} entries`)
 
 const names = new Set()
 for (const item of local) {
@@ -36,4 +36,4 @@ if (errors.length) {
   process.exit(1)
 }
 
-console.log(`Verified ${local.length}/${sources.sites.length} adapters, JSON manifests, paths, and JavaScript syntax.`)
+console.log(`Verified ${sources.sites.length} adapters plus 1 diagnostic source, JSON manifests, paths, and JavaScript syntax.`)

@@ -1,5 +1,12 @@
 [
   {
+    "name": "诊断 - UZ 兼容层状态",
+    "version": 1,
+    "remark": "无需联网；用于确认订阅包和 UZ type:101 扩展运行是否正常",
+    "api": "vod/js/diagnostic.js",
+    "type": 101
+  },
+  {
     "name": "XPTV - 哔滴影视",
     "version": 1,
     "remark": "XPTV 动态兼容适配器（实验性）",
@@ -186,6 +193,209 @@
     "version": 1,
     "remark": "XPTV 动态兼容适配器（实验性）",
     "api": "vod/js/xptv_yiys.js",
+    "type": 101
+  },
+  {
+    "name": "XPAV - MISSAV",
+    "version": 1,
+    "remark": "XPAV 动态兼容适配器（实验性）",
+    "api": "vod/js/xptv_miss.js",
+    "type": 101
+  },
+  {
+    "name": "XPAV - EXPORNTOONS",
+    "version": 1,
+    "remark": "XPAV 动态兼容适配器（实验性）",
+    "api": "vod/js/xptv_exporntoons.js",
+    "type": 101
+  },
+  {
+    "name": "XPAV - SpankBang",
+    "version": 1,
+    "remark": "XPAV 动态兼容适配器（实验性）",
+    "api": "vod/js/xptv_spankbang.js",
+    "type": 101
+  },
+  {
+    "name": "XPAV - 麻豆社",
+    "version": 1,
+    "remark": "XPAV 动态兼容适配器（实验性）",
+    "api": "vod/js/xptv_madou.js",
+    "type": 101
+  },
+  {
+    "name": "XPAV - 玩偶姐姐",
+    "version": 1,
+    "remark": "XPAV 动态兼容适配器（实验性）",
+    "api": "vod/js/xptv_hkdoll.js",
+    "type": 101
+  },
+  {
+    "name": "XPAV - Hanime1",
+    "version": 1,
+    "remark": "XPAV 动态兼容适配器（实验性）",
+    "api": "vod/js/xptv_hanime1.js",
+    "type": 101
+  },
+  {
+    "name": "XPAV - 秋名山見(live)",
+    "version": 1,
+    "remark": "XPAV 动态兼容适配器（实验性）",
+    "api": "vod/js/xptv_harunasan.js",
+    "type": 101
+  },
+  {
+    "name": "XPAV - SupJav",
+    "version": 1,
+    "remark": "XPAV 动态兼容适配器（实验性）",
+    "api": "vod/js/xptv_supjav.js",
+    "type": 101
+  },
+  {
+    "name": "XPAV - 91jav (無海報)",
+    "version": 1,
+    "remark": "XPAV 动态兼容适配器（实验性）",
+    "api": "vod/js/xptv_91jav.js",
+    "type": 101
+  },
+  {
+    "name": "XPAV - hohoj",
+    "version": 1,
+    "remark": "XPAV 动态兼容适配器（实验性）",
+    "api": "vod/js/xptv_hohoj.js",
+    "type": 101
+  },
+  {
+    "name": "XPAV - KoreaPornMovie",
+    "version": 1,
+    "remark": "XPAV 动态兼容适配器（实验性）",
+    "api": "vod/js/xptv_kpm.js",
+    "type": 101
+  },
+  {
+    "name": "XPAV - pppHub",
+    "version": 1,
+    "remark": "XPAV 动态兼容适配器（实验性）",
+    "api": "vod/js/xptv_ppron.js",
+    "type": 101
+  },
+  {
+    "name": "XPAV - avtoday",
+    "version": 1,
+    "remark": "XPAV 动态兼容适配器（实验性）",
+    "api": "vod/js/xptv_avtoday.js",
+    "type": 101
+  },
+  {
+    "name": "XPAV - xHamster",
+    "version": 1,
+    "remark": "XPAV 动态兼容适配器（实验性）",
+    "api": "vod/js/xptv_xhamster.js",
+    "type": 101
+  },
+  {
+    "name": "XPAV - Pornhub",
+    "version": 1,
+    "remark": "XPAV 动态兼容适配器（实验性）",
+    "api": "vod/js/xptv_pornhub.js",
+    "type": 101
+  },
+  {
+    "name": "XPAV - jable",
+    "version": 1,
+    "remark": "XPAV 动态兼容适配器（实验性）",
+    "api": "vod/js/xptv_jable.js",
+    "type": 101
+  },
+  {
+    "name": "XPAV - 桃花族",
+    "version": 1,
+    "remark": "XPAV 动态兼容适配器（实验性）",
+    "api": "vod/js/xptv_taohuazu.js",
+    "type": 101
+  },
+  {
+    "name": "XPAV - 花都影視",
+    "version": 1,
+    "remark": "XPAV 动态兼容适配器（实验性）",
+    "api": "vod/js/xptv_hdys.js",
+    "type": 101
+  },
+  {
+    "name": "XPAV - 肉视频",
+    "version": 1,
+    "remark": "XPAV 动态兼容适配器（实验性）",
+    "api": "vod/js/xptv_rou.js",
+    "type": 101
+  },
+  {
+    "name": "XPAV - Taiav",
+    "version": 1,
+    "remark": "XPAV 动态兼容适配器（实验性）",
+    "api": "vod/js/xptv_taiav.js",
+    "type": 101
+  },
+  {
+    "name": "XPAV - JavMove",
+    "version": 1,
+    "remark": "XPAV 动态兼容适配器（实验性）",
+    "api": "vod/js/xptv_javmove.js",
+    "type": 101
+  },
+  {
+    "name": "XPAV - 有爱爱",
+    "version": 1,
+    "remark": "XPAV 动态兼容适配器（实验性）",
+    "api": "vod/js/xptv_uaa.js",
+    "type": 101
+  },
+  {
+    "name": "XPAV - AVDB",
+    "version": 1,
+    "remark": "XPAV 动态兼容适配器（实验性）",
+    "api": "vod/js/xptv_avdb.js",
+    "type": 101
+  },
+  {
+    "name": "XPAV - KanAV",
+    "version": 1,
+    "remark": "XPAV 动态兼容适配器（实验性）",
+    "api": "vod/js/xptv_kanav.js",
+    "type": 101
+  },
+  {
+    "name": "XPAV - kbjfan",
+    "version": 1,
+    "remark": "XPAV 动态兼容适配器（实验性）",
+    "api": "vod/js/xptv_kbjfan.js",
+    "type": 101
+  },
+  {
+    "name": "XPAV - twivideo",
+    "version": 1,
+    "remark": "XPAV 动态兼容适配器（实验性）",
+    "api": "vod/js/xptv_twivideo.js",
+    "type": 101
+  },
+  {
+    "name": "XPAV - javxx",
+    "version": 1,
+    "remark": "XPAV 动态兼容适配器（实验性）",
+    "api": "vod/js/xptv_javxx.js",
+    "type": 101
+  },
+  {
+    "name": "XPAV - beeg",
+    "version": 1,
+    "remark": "XPAV 动态兼容适配器（实验性）",
+    "api": "vod/js/xptv_beeg.js",
+    "type": 101
+  },
+  {
+    "name": "XPAV - 蜜桃臀",
+    "version": 1,
+    "remark": "XPAV 动态兼容适配器（实验性）",
+    "api": "vod/js/xptv_mitaotun.js",
     "type": 101
   }
 ]
