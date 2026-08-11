@@ -35,7 +35,7 @@ async function getTracks() {
 }
 async function getPlayinfo(ext) {
   ext = argsify(ext)
-  return jsonify({ urls: [ext.url] })
+  return jsonify({ urls: [ext.url], headers: [{ 'User-Agent': 'XPAV-test', Referer: 'https://missav.ai' }] })
 }
 async function search(ext) {
   ext = argsify(ext)
@@ -123,6 +123,8 @@ const xpavPlayId = xpavDetail.data.vod_play_url.split('$')[1]
 const xpavPlay = JSON.parse(await xpavContext.getVideoPlayUrl({ url: xpavPlayId }))
 assert.equal(xpavPlay.error, '')
 assert.equal(xpavPlay.data, 'https://video.example/test.m3u8')
+assert.deepEqual(xpavPlay.headers, { 'User-Agent': 'XPAV-test', Referer: 'https://missav.ai' })
+assert.deepEqual(xpavPlay.urls[0].headers, { 'User-Agent': 'XPAV-test', Referer: 'https://missav.ai' })
 
 const xpavSearch = JSON.parse(await xpavContext.searchVideo({ searchWord: '测试', page: 1 }))
 assert.equal(xpavSearch.error, '')

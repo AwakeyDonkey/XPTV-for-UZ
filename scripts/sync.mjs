@@ -247,6 +247,13 @@ const searchFunction = (site) => site.isAV ? `async function searchVideo(args) {
   return JSON.stringify(backData)
 }`
 
+const playHeadersSetup = (site) => site.isAV ? `    const playHeaders = Array.isArray(result.headers)
+      ? ((result.headers[0] && typeof result.headers[0] === 'object') ? result.headers[0] : {})
+      : ((result.headers && typeof result.headers === 'object') ? result.headers : {})
+` : ''
+
+const playHeadersValue = (site) => site.isAV ? 'playHeaders' : 'result.headers'
+
 const adapter = (site, slug) => `// ignore
 //@name:${site.catalog || 'XPTV'} - ${site.name}
 //@webSite:${site.webSite}
@@ -462,10 +469,10 @@ async function getVideoPlayUrl(args) {
     if (!runtime.getPlayinfo) throw new Error('XPTV source does not implement getPlayinfo')
     const result = xptvParse(await runtime.getPlayinfo(JSON.stringify(xptvDecode(args.url))))
     const urls = Array.isArray(result.urls) ? result.urls : []
-    backData.data = typeof urls[0] === 'string' ? urls[0] : ((urls[0] && urls[0].url) || result.url || '')
-    backData.headers = result.headers || undefined
+${playHeadersSetup(site)}    backData.data = typeof urls[0] === 'string' ? urls[0] : ((urls[0] && urls[0].url) || result.url || '')
+    backData.headers = ${playHeadersValue(site)} || undefined
     backData.urls = urls.map((item, index) => typeof item === 'string'
-      ? { name: '线路' + (index + 1), url: item, headers: result.headers || {}, priority: urls.length - index }
+      ? { name: '线路' + (index + 1), url: item, headers: ${playHeadersValue(site)} || {}, priority: urls.length - index }
       : item)
   } catch (error) { backData.error = String(error) }
   return JSON.stringify(backData)

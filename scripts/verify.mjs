@@ -42,6 +42,7 @@ for (const item of local) {
       }
       if (!code.includes('item.hasSubclass = false')) errors.push(`${item.api}: XPAV adapter must not advertise subclasses`)
       if (!code.includes('return JSON.stringify(new RepVideoSubclassList())')) errors.push(`${item.api}: XPAV adapter must use the legacy empty subclass response`)
+      if (!code.includes('Array.isArray(result.headers)')) errors.push(`${item.api}: XPAV adapter must normalize upstream header arrays to an object`)
     } else {
       for (const helper of ['xptvFilterTitles', 'xptvFilterValue', 'XPTV_HAS_SEARCH', 'XPTV_HAS_FILTERS']) {
         if (!code.includes(helper)) errors.push(`${item.api}: missing v1.2 helper ${helper}`)

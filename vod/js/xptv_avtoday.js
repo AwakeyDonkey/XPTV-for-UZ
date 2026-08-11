@@ -218,10 +218,13 @@ async function getVideoPlayUrl(args) {
     if (!runtime.getPlayinfo) throw new Error('XPTV source does not implement getPlayinfo')
     const result = xptvParse(await runtime.getPlayinfo(JSON.stringify(xptvDecode(args.url))))
     const urls = Array.isArray(result.urls) ? result.urls : []
+    const playHeaders = Array.isArray(result.headers)
+      ? ((result.headers[0] && typeof result.headers[0] === 'object') ? result.headers[0] : {})
+      : ((result.headers && typeof result.headers === 'object') ? result.headers : {})
     backData.data = typeof urls[0] === 'string' ? urls[0] : ((urls[0] && urls[0].url) || result.url || '')
-    backData.headers = result.headers || undefined
+    backData.headers = playHeaders || undefined
     backData.urls = urls.map((item, index) => typeof item === 'string'
-      ? { name: '线路' + (index + 1), url: item, headers: result.headers || {}, priority: urls.length - index }
+      ? { name: '线路' + (index + 1), url: item, headers: playHeaders || {}, priority: urls.length - index }
       : item)
   } catch (error) { backData.error = String(error) }
   return JSON.stringify(backData)
