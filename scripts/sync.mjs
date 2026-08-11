@@ -115,54 +115,11 @@ const slugify = (site, index) => {
 const jsString = (value) => JSON.stringify(String(value))
 const adapterVersion = 3
 
-const adapter = (site, slug) => `// ignore
-//@name:${site.catalog || 'XPTV'} - ${site.name}
-//@webSite:${site.webSite}
-//@version:${adapterVersion}
-//@remark:XPTV 动态兼容适配器；首次使用需要联网加载原始源
-//@isAV:${site.isAV ? 1 : 0}
-//@deprecated:0
-// ignore
-
-const XPTV_SOURCE_NAME = ${jsString(site.name)}
-const XPTV_SOURCE_URL = ${jsString(site.ext)}
-const XPTV_SOURCE_KEY = ${jsString(slug)}
+const capabilityConstants = (site) => site.isAV ? '' : `
 const XPTV_HAS_SEARCH = ${site.hasSearch !== false}
-const XPTV_HAS_FILTERS = ${site.hasFilters === true}
+const XPTV_HAS_FILTERS = ${site.hasFilters === true}`
 
-const appConfig = {
-  _webSite: '',
-  get webSite() { return this._webSite },
-  set webSite(value) { this._webSite = value },
-  _uzTag: '',
-  get uzTag() { return this._uzTag },
-  set uzTag(value) { this._uzTag = value },
-}
-
-let xptvRuntimePromise = null
-const xptvMemoryCache = {}
-
-function xptvText(value) {
-  return typeof value === 'string' ? value : JSON.stringify(value)
-}
-
-function xptvParse(value) {
-  if (value == null || value === '') return {}
-  if (typeof value === 'object') return value
-  try { return JSON.parse(value) } catch (_) { return {} }
-}
-
-function xptvEncode(value) {
-  return 'xptv:' + encodeURIComponent(JSON.stringify(value || {}))
-}
-
-function xptvDecode(value) {
-  const text = String(value || '')
-  if (!text.startsWith('xptv:')) return { id: text, url: text }
-  try { return JSON.parse(decodeURIComponent(text.slice(5))) } catch (_) { return {} }
-}
-
-function xptvScalar(value) {
+const filterHelpers = (site) => site.isAV ? '' : `function xptvScalar(value) {
   if (value == null) return ''
   if (typeof value === 'object') return 'xptv-filter:' + encodeURIComponent(JSON.stringify(value))
   return String(value)
@@ -202,7 +159,140 @@ function xptvFilterTitles(rawFilter) {
   }).filter(Boolean)
 }
 
-function xptvCheerioTools() {
+`
+
+const downloadHelper = (site) => site.isAV ? '' : `      download: async (url, options) => {
+        const opts = options || {}
+        const response = await req(url, { method: 'get', headers: opts.headers || {}, responseType: 'arraybuffer' })
+        let bytes = response.data
+        if (bytes instanceof ArrayBuffer) bytes = new Uint8Array(bytes)
+        else if (ArrayBuffer.isView(bytes)) bytes = new Uint8Array(bytes.buffer, bytes.byteOffset, bytes.byteLength)
+        else if (Array.isArray(bytes)) bytes = new Uint8Array(bytes)
+        const data = bytes && typeof bytes.length === 'number'
+          ? Array.from(bytes, (byte) => Number(byte).toString(2).padStart(8, '0')).join('')
+          : xptvText(bytes)
+        return { data: data, headers: response.headers || {}, respHeaders: response.headers || {}, status: response.statusCode || response.status || 200 }
+      },
+`
+
+const subclassListFunction = (site) => site.isAV ? `async function getSubclassList(args) {
+  return JSON.stringify(new RepVideoSubclassList())
+}` : `async function getSubclassList(args) {
+  const backData = new RepVideoSubclassList()
+  try {
+    if (!XPTV_HAS_FILTERS) return JSON.stringify(backData)
+    const runtime = await xptvLoadRuntime()
+    if (!runtime.getCards) throw new Error('XPTV source does not implement getCards')
+    const ext = xptvDecode(args.url)
+    ext.page = 1
+    const result = xptvParse(await runtime.getCards(JSON.stringify(ext)))
+    const data = new VideoSubclass()
+    data.filter = xptvFilterTitles(result.filter || result.filters)
+    backData.data = data
+  } catch (error) { backData.error = String(error) }
+  return JSON.stringify(backData)
+}`
+
+const videoListResult = (site) => site.isAV
+  ? `    backData.data = (Array.isArray(result.list) ? result.list : []).map(xptvCardToVideo)
+    backData.total = Number(result.total || 0)`
+  : `    const list = Array.isArray(result.list) ? result.list : []
+    backData.data = list.map(xptvCardToVideo)
+    backData.total = Number(result.total == null ? list.length : result.total)`
+
+const subclassVideoListFunction = (site) => site.isAV ? `async function getSubclassVideoList(args) {
+  return getVideoList({ url: args.subclassId || args.mainClassId || args.url, page: args.page || 1 })
+}` : `async function getSubclassVideoList(args) {
+  const backData = new RepVideoList()
+  try {
+    const runtime = await xptvLoadRuntime()
+    if (!runtime.getCards) throw new Error('XPTV source does not implement getCards')
+    const ext = xptvDecode(args.subclassId || args.mainClassId || args.url)
+    ext.page = args.page || 1
+    ext.filters = {}
+    const selected = Array.isArray(args.filter) ? args.filter : []
+    selected.forEach((item) => {
+      if (item && item.key != null) ext.filters[String(item.key)] = xptvFilterValue(item.id)
+    })
+    const result = xptvParse(await runtime.getCards(JSON.stringify(ext)))
+    const list = Array.isArray(result.list) ? result.list : []
+    backData.data = list.map(xptvCardToVideo)
+    backData.total = Number(result.total == null ? list.length : result.total)
+  } catch (error) { backData.error = String(error) }
+  return JSON.stringify(backData)
+}`
+
+const searchFunction = (site) => site.isAV ? `async function searchVideo(args) {
+  const backData = new RepVideoList()
+  try {
+    const runtime = await xptvLoadRuntime()
+    if (!runtime.search) throw new Error('XPTV source does not implement search')
+    const result = xptvParse(await runtime.search(JSON.stringify({ text: args.searchWord || '', page: args.page || 1 })))
+    backData.data = (Array.isArray(result.list) ? result.list : []).map(xptvCardToVideo)
+    backData.total = Number(result.total || 0)
+  } catch (error) { backData.error = String(error) }
+  return JSON.stringify(backData)
+}` : `async function searchVideo(args) {
+  const backData = new RepVideoList()
+  try {
+    const runtime = await xptvLoadRuntime()
+    if (!XPTV_HAS_SEARCH || !runtime.search) throw new Error('XPTV source does not implement search')
+    const keyword = String(args.searchWord || '').trim()
+    if (!keyword) return JSON.stringify(backData)
+    const result = xptvParse(await runtime.search(JSON.stringify({ text: keyword, wd: keyword, keyword: keyword, page: args.page || 1 })))
+    const list = Array.isArray(result.list) ? result.list : []
+    backData.data = list.map(xptvCardToVideo)
+    backData.total = Number(result.total == null ? list.length : result.total)
+  } catch (error) { backData.error = String(error) }
+  return JSON.stringify(backData)
+}`
+
+const adapter = (site, slug) => `// ignore
+//@name:${site.catalog || 'XPTV'} - ${site.name}
+//@webSite:${site.webSite}
+//@version:${adapterVersion}
+//@remark:XPTV 动态兼容适配器；首次使用需要联网加载原始源
+//@isAV:${site.isAV ? 1 : 0}
+//@deprecated:0
+// ignore
+
+const XPTV_SOURCE_NAME = ${jsString(site.name)}
+const XPTV_SOURCE_URL = ${jsString(site.ext)}
+const XPTV_SOURCE_KEY = ${jsString(slug)}${capabilityConstants(site)}
+
+const appConfig = {
+  _webSite: '',
+  get webSite() { return this._webSite },
+  set webSite(value) { this._webSite = value },
+  _uzTag: '',
+  get uzTag() { return this._uzTag },
+  set uzTag(value) { this._uzTag = value },
+}
+
+let xptvRuntimePromise = null
+const xptvMemoryCache = {}
+
+function xptvText(value) {
+  return typeof value === 'string' ? value : JSON.stringify(value)
+}
+
+function xptvParse(value) {
+  if (value == null || value === '') return {}
+  if (typeof value === 'object') return value
+  try { return JSON.parse(value) } catch (_) { return {} }
+}
+
+function xptvEncode(value) {
+  return 'xptv:' + encodeURIComponent(JSON.stringify(value || {}))
+}
+
+function xptvDecode(value) {
+  const text = String(value || '')
+  if (!text.startsWith('xptv:')) return { id: text, url: text }
+  try { return JSON.parse(decodeURIComponent(text.slice(5))) } catch (_) { return {} }
+}
+
+${filterHelpers(site)}function xptvCheerioTools() {
   return {
     elements(html, selector) {
       const $ = cheerio.load(String(html || ''))
@@ -257,19 +347,7 @@ async function xptvLoadRuntime() {
         if (dataOrOptions && typeof dataOrOptions === 'object') return xptvRequest('post', url, dataOrOptions)
         return xptvRequest('post', url, { data: dataOrOptions })
       },
-      download: async (url, options) => {
-        const opts = options || {}
-        const response = await req(url, { method: 'get', headers: opts.headers || {}, responseType: 'arraybuffer' })
-        let bytes = response.data
-        if (bytes instanceof ArrayBuffer) bytes = new Uint8Array(bytes)
-        else if (ArrayBuffer.isView(bytes)) bytes = new Uint8Array(bytes.buffer, bytes.byteOffset, bytes.byteLength)
-        else if (Array.isArray(bytes)) bytes = new Uint8Array(bytes)
-        const data = bytes && typeof bytes.length === 'number'
-          ? Array.from(bytes, (byte) => Number(byte).toString(2).padStart(8, '0')).join('')
-          : xptvText(bytes)
-        return { data: data, headers: response.headers || {}, respHeaders: response.headers || {}, status: response.statusCode || response.status || 200 }
-      },
-    }
+${downloadHelper(site)}    }
     const $cache = {
       get: (key) => xptvMemoryCache[key],
       set: (key, value) => { xptvMemoryCache[key] = value },
@@ -329,28 +407,14 @@ async function getClassList(args) {
       const item = new VideoClass()
       item.type_id = xptvEncode(tab.ext || { id: index })
       item.type_name = tab.name || String(index + 1)
-      item.hasSubclass = XPTV_HAS_FILTERS
+      item.hasSubclass = ${site.isAV ? 'false' : 'XPTV_HAS_FILTERS'}
       return item
     })
   } catch (error) { backData.error = String(error) }
   return JSON.stringify(backData)
 }
 
-async function getSubclassList(args) {
-  const backData = new RepVideoSubclassList()
-  try {
-    if (!XPTV_HAS_FILTERS) return JSON.stringify(backData)
-    const runtime = await xptvLoadRuntime()
-    if (!runtime.getCards) throw new Error('XPTV source does not implement getCards')
-    const ext = xptvDecode(args.url)
-    ext.page = 1
-    const result = xptvParse(await runtime.getCards(JSON.stringify(ext)))
-    const data = new VideoSubclass()
-    data.filter = xptvFilterTitles(result.filter || result.filters)
-    backData.data = data
-  } catch (error) { backData.error = String(error) }
-  return JSON.stringify(backData)
-}
+${subclassListFunction(site)}
 
 async function getVideoList(args) {
   const backData = new RepVideoList()
@@ -360,32 +424,12 @@ async function getVideoList(args) {
     const ext = xptvDecode(args.url)
     ext.page = args.page || 1
     const result = xptvParse(await runtime.getCards(JSON.stringify(ext)))
-    const list = Array.isArray(result.list) ? result.list : []
-    backData.data = list.map(xptvCardToVideo)
-    backData.total = Number(result.total == null ? list.length : result.total)
+${videoListResult(site)}
   } catch (error) { backData.error = String(error) }
   return JSON.stringify(backData)
 }
 
-async function getSubclassVideoList(args) {
-  const backData = new RepVideoList()
-  try {
-    const runtime = await xptvLoadRuntime()
-    if (!runtime.getCards) throw new Error('XPTV source does not implement getCards')
-    const ext = xptvDecode(args.subclassId || args.mainClassId || args.url)
-    ext.page = args.page || 1
-    ext.filters = {}
-    const selected = Array.isArray(args.filter) ? args.filter : []
-    selected.forEach((item) => {
-      if (item && item.key != null) ext.filters[String(item.key)] = xptvFilterValue(item.id)
-    })
-    const result = xptvParse(await runtime.getCards(JSON.stringify(ext)))
-    const list = Array.isArray(result.list) ? result.list : []
-    backData.data = list.map(xptvCardToVideo)
-    backData.total = Number(result.total == null ? list.length : result.total)
-  } catch (error) { backData.error = String(error) }
-  return JSON.stringify(backData)
-}
+${subclassVideoListFunction(site)}
 
 async function getVideoDetail(args) {
   const backData = new RepVideoDetail()
@@ -427,20 +471,7 @@ async function getVideoPlayUrl(args) {
   return JSON.stringify(backData)
 }
 
-async function searchVideo(args) {
-  const backData = new RepVideoList()
-  try {
-    const runtime = await xptvLoadRuntime()
-    if (!XPTV_HAS_SEARCH || !runtime.search) throw new Error('XPTV source does not implement search')
-    const keyword = String(args.searchWord || '').trim()
-    if (!keyword) return JSON.stringify(backData)
-    const result = xptvParse(await runtime.search(JSON.stringify({ text: keyword, wd: keyword, keyword: keyword, page: args.page || 1 })))
-    const list = Array.isArray(result.list) ? result.list : []
-    backData.data = list.map(xptvCardToVideo)
-    backData.total = Number(result.total == null ? list.length : result.total)
-  } catch (error) { backData.error = String(error) }
-  return JSON.stringify(backData)
-}
+${searchFunction(site)}
 `
 
 const generated = []

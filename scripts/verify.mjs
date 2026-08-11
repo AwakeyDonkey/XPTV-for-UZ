@@ -36,8 +36,16 @@ for (const item of local) {
   }
   if (item.api.startsWith('vod/js/xptv_')) {
     if (item.version !== 3) errors.push(`${item.api}: expected adapter version 3`)
-    for (const helper of ['xptvFilterTitles', 'xptvFilterValue', 'XPTV_HAS_SEARCH', 'XPTV_HAS_FILTERS']) {
-      if (!code.includes(helper)) errors.push(`${item.api}: missing v1.2 helper ${helper}`)
+    if (item.name.startsWith('XPAV - ')) {
+      for (const helper of ['xptvFilterTitles', 'xptvFilterValue', 'XPTV_HAS_FILTERS']) {
+        if (code.includes(helper)) errors.push(`${item.api}: XPAV adapter must use the pre-filter format (found ${helper})`)
+      }
+      if (!code.includes('item.hasSubclass = false')) errors.push(`${item.api}: XPAV adapter must not advertise subclasses`)
+      if (!code.includes('return JSON.stringify(new RepVideoSubclassList())')) errors.push(`${item.api}: XPAV adapter must use the legacy empty subclass response`)
+    } else {
+      for (const helper of ['xptvFilterTitles', 'xptvFilterValue', 'XPTV_HAS_SEARCH', 'XPTV_HAS_FILTERS']) {
+        if (!code.includes(helper)) errors.push(`${item.api}: missing v1.2 helper ${helper}`)
+      }
     }
   }
 }

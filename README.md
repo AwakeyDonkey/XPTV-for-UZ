@@ -31,7 +31,7 @@ https://github.com/AwakeyDonkey/XPTV-for-UZ/releases/download/v1.1.1/XPTV-for-UZ
 - `sources.json` 保存两个上游订阅及合并后的源快照。
 - `scripts/sync.mjs` 每次通过代理订阅同步 XPTV 和 XPAV 的 `type:3` JavaScript 源。
 - 同步时从每个 JS 的 `appConfig.site`、`SITE` 或配置字段提取真实网站主页，并写入 UZ type:101 必需的 `webSite`。
-- v1.2 将 XPTV `search()` 映射到 UZ `searchVideo()`，并把 XPTV `getCards()` 返回的筛选项转换为 UZ 二级分类筛选。
+- v1.2 将 XPTV `search()` 映射到 UZ `searchVideo()`，并把 XPTV `getCards()` 返回的筛选项转换为 UZ 二级分类筛选；XPAV 源保持升级筛选前的无二级分类格式，以兼容 UZ 的分类、详情与播放流程。
 - `vod/js/xptv_*.js` 在 UZ 运行时下载相应 XPTV JS，并提供 `$fetch`、Cheerio、Crypto、`$html` 等兼容能力。
 - GitHub Actions 每天构建一次，并覆盖固定 `uz-latest` Release 中的 ZIP，订阅 URL 保持不变。
 - `诊断 - UZ 兼容层状态` 不访问网络；如果它也显示“暂无数据”，问题不在上游订阅源。
