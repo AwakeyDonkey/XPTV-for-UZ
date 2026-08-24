@@ -32,22 +32,6 @@
     "type": 101
   },
   {
-    "name": "XPTV - LIBVIO",
-    "version": 3,
-    "remark": "XPTV 动态兼容适配器（实验性）",
-    "webSite": "https://www.libvios.com",
-    "api": "vod/js/xptv_libvio.js",
-    "type": 101
-  },
-  {
-    "name": "XPTV - ギリギリ动漫",
-    "version": 3,
-    "remark": "XPTV 动态兼容适配器（实验性）",
-    "webSite": "https://bgm.girigirilove.com",
-    "api": "vod/js/xptv_ai.js",
-    "type": 101
-  },
-  {
     "name": "XPTV - 独播库",
     "version": 3,
     "remark": "XPTV 动态兼容适配器（实验性）",
@@ -69,14 +53,6 @@
     "remark": "XPTV 动态兼容适配器（实验性）",
     "webSite": "https://4kmp.com",
     "api": "vod/js/xptv_4kav.js",
-    "type": 101
-  },
-  {
-    "name": "XPTV - 韓劇看看",
-    "version": 3,
-    "remark": "XPTV 动态兼容适配器（实验性）",
-    "webSite": "https://www.hanjukankan.com",
-    "api": "vod/js/xptv_hjkk.js",
     "type": 101
   },
   {
@@ -136,14 +112,6 @@
     "type": 101
   },
   {
-    "name": "XPTV - 嗷嗚動漫",
-    "version": 3,
-    "remark": "XPTV 动态兼容适配器（实验性）",
-    "webSite": "https://www.aowu.tv",
-    "api": "vod/js/xptv_aowu.js",
-    "type": 101
-  },
-  {
     "name": "XPTV - 荐片",
     "version": 3,
     "remark": "XPTV 动态兼容适配器（实验性）",
@@ -152,27 +120,11 @@
     "type": 101
   },
   {
-    "name": "XPTV - 人人",
-    "version": 3,
-    "remark": "XPTV 动态兼容适配器（实验性）",
-    "webSite": "https://api.rrmj.plus",
-    "api": "vod/js/xptv_rrmj.js",
-    "type": 101
-  },
-  {
     "name": "XPTV - anime1",
     "version": 3,
     "remark": "XPTV 动态兼容适配器（实验性）",
     "webSite": "https://anime1.me",
     "api": "vod/js/xptv_anime1.js",
-    "type": 101
-  },
-  {
-    "name": "XPTV - 农民影视",
-    "version": 3,
-    "remark": "XPTV 动态兼容适配器（实验性）",
-    "webSite": "https://vip.wwgz.cn:5200",
-    "api": "vod/js/xptv_wwgz.js",
     "type": 101
   },
   {

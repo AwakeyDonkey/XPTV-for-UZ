@@ -13,7 +13,7 @@
       "isAV": true
     }
   ],
-  "syncedAt": "2026-08-23T04:02:56.529Z",
+  "syncedAt": "2026-08-24T04:07:31.911Z",
   "sites": [
     {
       "name": "哔滴影视",
@@ -49,28 +49,6 @@
       "hasFilters": true
     },
     {
-      "name": "LIBVIO",
-      "type": 3,
-      "api": "csp_libvio",
-      "ext": "https://ghp.xptvhelper.link/https://raw.githubusercontent.com/fangkuia/XPTV/refs/heads/main/js/libvio.js",
-      "catalog": "XPTV",
-      "isAV": false,
-      "webSite": "https://www.libvios.com",
-      "hasSearch": true,
-      "hasFilters": false
-    },
-    {
-      "name": "ギリギリ动漫",
-      "type": 3,
-      "api": "csp_ai",
-      "ext": "https://ghp.xptvhelper.link/https://raw.githubusercontent.com/fangkuia/XPTV/refs/heads/main/js/ai.js",
-      "catalog": "XPTV",
-      "isAV": false,
-      "webSite": "https://bgm.girigirilove.com",
-      "hasSearch": true,
-      "hasFilters": false
-    },
-    {
       "name": "独播库",
       "type": 3,
       "api": "csp_duboku",
@@ -100,17 +78,6 @@
       "catalog": "XPTV",
       "isAV": false,
       "webSite": "https://4kmp.com",
-      "hasSearch": true,
-      "hasFilters": false
-    },
-    {
-      "name": "韓劇看看",
-      "type": 3,
-      "api": "csp_hjkk",
-      "ext": "https://ghp.xptvhelper.link/https://raw.githubusercontent.com/Yswag/xptv-extensions/main/js/hjkk.js",
-      "catalog": "XPTV",
-      "isAV": false,
-      "webSite": "https://www.hanjukankan.com",
       "hasSearch": true,
       "hasFilters": false
     },
@@ -192,17 +159,6 @@
       "hasFilters": false
     },
     {
-      "name": "嗷嗚動漫",
-      "type": 3,
-      "api": "csp_aowu",
-      "ext": "https://ghp.xptvhelper.link/https://raw.githubusercontent.com/Yswag/xptv-extensions/main/js/aowu.js",
-      "catalog": "XPTV",
-      "isAV": false,
-      "webSite": "https://www.aowu.tv",
-      "hasSearch": true,
-      "hasFilters": false
-    },
-    {
       "name": "荐片",
       "type": 3,
       "api": "csp_jianpian",
@@ -214,17 +170,6 @@
       "hasFilters": true
     },
     {
-      "name": "人人",
-      "type": 3,
-      "api": "csp_rrmj",
-      "ext": "https://ghp.xptvhelper.link/https://raw.githubusercontent.com/Yswag/xptv-extensions/refs/heads/main/js/rrmj.js",
-      "catalog": "XPTV",
-      "isAV": false,
-      "webSite": "https://api.rrmj.plus",
-      "hasSearch": true,
-      "hasFilters": false
-    },
-    {
       "name": "anime1",
       "type": 3,
       "api": "csp_anime1",
@@ -234,17 +179,6 @@
       "webSite": "https://anime1.me",
       "hasSearch": true,
       "hasFilters": false
-    },
-    {
-      "name": "农民影视",
-      "type": 3,
-      "api": "csp_wwgz",
-      "ext": "https://ghp.xptvhelper.link/https://raw.githubusercontent.com/Yswag/xptv-extensions/refs/heads/main/js/wwgz.js",
-      "catalog": "XPTV",
-      "isAV": false,
-      "webSite": "https://vip.wwgz.cn:5200",
-      "hasSearch": true,
-      "hasFilters": true
     },
     {
       "name": "七色番動漫",
