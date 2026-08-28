@@ -13,7 +13,7 @@
       "isAV": true
     }
   ],
-  "syncedAt": "2026-08-27T14:15:04.833Z",
+  "syncedAt": "2026-08-28T15:28:07.291Z",
   "sites": [
     {
       "name": "哔滴影视",
@@ -562,6 +562,17 @@
       "catalog": "XPAV",
       "isAV": true,
       "webSite": "https://mitaotunbbx.xyz",
+      "hasSearch": true,
+      "hasFilters": false
+    },
+    {
+      "name": "黃果短劇",
+      "type": 3,
+      "api": "csp_huangguo",
+      "ext": "https://ghp.xptvhelper.link/https://raw.githubusercontent.com/Yswag/xptv-extensions/refs/heads/main/js/huangguo.js",
+      "catalog": "XPAV",
+      "isAV": true,
+      "webSite": "https://huangguoai.com",
       "hasSearch": true,
       "hasFilters": false
     }

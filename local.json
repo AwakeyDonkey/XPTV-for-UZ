@@ -406,5 +406,13 @@
     "webSite": "https://mitaotunbbx.xyz",
     "api": "vod/js/xptv_mitaotun.js",
     "type": 101
+  },
+  {
+    "name": "XPAV - 黃果短劇",
+    "version": 3,
+    "remark": "XPAV 动态兼容适配器（实验性）",
+    "webSite": "https://huangguoai.com",
+    "api": "vod/js/xptv_huangguo.js",
+    "type": 101
   }
 ]
