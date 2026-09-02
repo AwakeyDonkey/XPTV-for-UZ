@@ -13,7 +13,7 @@
       "isAV": true
     }
   ],
-  "syncedAt": "2026-09-01T08:41:58.162Z",
+  "syncedAt": "2026-09-02T07:56:58.560Z",
   "sites": [
     {
       "name": "哔滴影视",
@@ -99,7 +99,7 @@
       "ext": "https://ghp.xptvhelper.link/https://raw.githubusercontent.com/Yswag/xptv-extensions/main/js/saohuo.js",
       "catalog": "XPTV",
       "isAV": false,
-      "webSite": "https://saohuo.tv",
+      "webSite": "https://shdy2.com",
       "hasSearch": true,
       "hasFilters": false
     },
@@ -189,18 +189,7 @@
       "isAV": false,
       "webSite": "https://www.7sefun.top",
       "hasSearch": true,
-      "hasFilters": false
-    },
-    {
-      "name": "茶杯狐",
-      "type": 3,
-      "api": "csp_cupfox",
-      "ext": "https://ghp.xptvhelper.link/https://raw.githubusercontent.com/Yswag/xptv-extensions/refs/heads/main/js/cupfox.js",
-      "catalog": "XPTV",
-      "isAV": false,
-      "webSite": "https://www.cupfox.ai",
-      "hasSearch": true,
-      "hasFilters": false
+      "hasFilters": true
     },
     {
       "name": "路漫漫",
@@ -243,6 +232,17 @@
       "catalog": "XPTV",
       "isAV": false,
       "webSite": "https://aleig4ah.yiys05.com",
+      "hasSearch": true,
+      "hasFilters": true
+    },
+    {
+      "name": "永樂視頻",
+      "type": 3,
+      "api": "csp_ylys",
+      "ext": "https://ghp.xptvhelper.link/https://raw.githubusercontent.com/Yswag/xptv-extensions/refs/heads/main/js/ylys.js",
+      "catalog": "XPTV",
+      "isAV": false,
+      "webSite": "https://www.ylys.tv",
       "hasSearch": true,
       "hasFilters": true
     },

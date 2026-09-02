@@ -67,7 +67,7 @@
     "name": "XPTV - 燒火電影",
     "version": 3,
     "remark": "XPTV 动态兼容适配器（实验性）",
-    "webSite": "https://saohuo.tv",
+    "webSite": "https://shdy2.com",
     "api": "vod/js/xptv_saohuo.js",
     "type": 101
   },
@@ -136,14 +136,6 @@
     "type": 101
   },
   {
-    "name": "XPTV - 茶杯狐",
-    "version": 3,
-    "remark": "XPTV 动态兼容适配器（实验性）",
-    "webSite": "https://www.cupfox.ai",
-    "api": "vod/js/xptv_cupfox.js",
-    "type": 101
-  },
-  {
     "name": "XPTV - 路漫漫",
     "version": 3,
     "remark": "XPTV 动态兼容适配器（实验性）",
@@ -173,6 +165,14 @@
     "remark": "XPTV 动态兼容适配器（实验性）",
     "webSite": "https://aleig4ah.yiys05.com",
     "api": "vod/js/xptv_yiys.js",
+    "type": 101
+  },
+  {
+    "name": "XPTV - 永樂視頻",
+    "version": 3,
+    "remark": "XPTV 动态兼容适配器（实验性）",
+    "webSite": "https://www.ylys.tv",
+    "api": "vod/js/xptv_ylys.js",
     "type": 101
   },
   {

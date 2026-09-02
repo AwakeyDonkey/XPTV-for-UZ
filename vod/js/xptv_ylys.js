@@ -1,17 +1,17 @@
 // ignore
-//@name:XPTV - 茶杯狐
-//@webSite:https://www.cupfox.ai
+//@name:XPTV - 永樂視頻
+//@webSite:https://www.ylys.tv
 //@version:3
 //@remark:XPTV 动态兼容适配器；首次使用需要联网加载原始源
 //@isAV:0
 //@deprecated:0
 // ignore
 
-const XPTV_SOURCE_NAME = "茶杯狐"
-const XPTV_SOURCE_URL = "https://ghp.xptvhelper.link/https://raw.githubusercontent.com/Yswag/xptv-extensions/refs/heads/main/js/cupfox.js"
-const XPTV_SOURCE_KEY = "cupfox"
+const XPTV_SOURCE_NAME = "永樂視頻"
+const XPTV_SOURCE_URL = "https://ghp.xptvhelper.link/https://raw.githubusercontent.com/Yswag/xptv-extensions/refs/heads/main/js/ylys.js"
+const XPTV_SOURCE_KEY = "ylys"
 const XPTV_HAS_SEARCH = true
-const XPTV_HAS_FILTERS = false
+const XPTV_HAS_FILTERS = true
 
 const appConfig = {
   _webSite: '',

@@ -1,6 +1,6 @@
 // ignore
 //@name:XPTV - 燒火電影
-//@webSite:https://saohuo.tv
+//@webSite:https://shdy2.com
 //@version:3
 //@remark:XPTV 动态兼容适配器；首次使用需要联网加载原始源
 //@isAV:0
