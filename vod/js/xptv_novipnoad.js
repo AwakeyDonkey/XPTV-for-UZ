@@ -11,7 +11,7 @@ const XPTV_SOURCE_NAME = "NO視頻"
 const XPTV_SOURCE_URL = "https://ghp.xptvhelper.link/https://raw.githubusercontent.com/Yswag/xptv-extensions/main/js/novipnoad.js"
 const XPTV_SOURCE_KEY = "novipnoad"
 const XPTV_HAS_SEARCH = true
-const XPTV_HAS_FILTERS = false
+const XPTV_HAS_FILTERS = true
 
 const appConfig = {
   _webSite: '',
