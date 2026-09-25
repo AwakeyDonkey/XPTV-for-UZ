@@ -12,12 +12,37 @@ const discovered = new Set()
 const identifierSites = new Map()
 const failures = []
 const warnings = []
+const FETCH_TIMEOUT_MS = 30000
+
+// Upstream ext URLs are wrapped in a GitHub proxy (e.g. https://ghp.xptvhelper.link/https://raw.githubusercontent.com/...).
+// When the proxy stalls, fall back to the canonical URL embedded after it.
+function candidateUrls(url) {
+  const nested = url.indexOf('/https://', 8)
+  return nested === -1 ? [url] : [url, url.slice(nested + 1)]
+}
+
+async function fetchSource(url) {
+  const errors = []
+  for (const candidate of candidateUrls(url)) {
+    for (let attempt = 1; attempt <= 2; attempt++) {
+      try {
+        const response = await fetch(candidate, {
+          headers: { 'User-Agent': 'XPTV-for-UZ-audit/1.0' },
+          signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+        })
+        if (!response.ok) throw new Error(`HTTP ${response.status}`)
+        return await response.text()
+      } catch (error) {
+        errors.push(`${new URL(candidate).host}#${attempt} ${error.message}`)
+      }
+    }
+  }
+  throw new Error(errors.join('; '))
+}
 
 for (const site of sites) {
   try {
-    const response = await fetch(site.ext, { headers: { 'User-Agent': 'XPTV-for-UZ-audit/1.0' } })
-    if (!response.ok) throw new Error(`HTTP ${response.status}`)
-    const code = await response.text()
+    const code = await fetchSource(site.ext)
     if (!code || /<html/i.test(code)) throw new Error('not JavaScript')
     new vm.Script(code, { filename: site.ext })
     for (const match of code.matchAll(/(?:create|load)[A-Z]\w*|\$[A-Za-z_]\w*/g)) {

@@ -46,7 +46,7 @@ async function addWebsite(site) {
   let hasSearch = previous.hasSearch
   let hasFilters = previous.hasFilters
   try {
-    const response = await fetch(site.ext, { headers: { 'User-Agent': 'XPTV-for-UZ-website-scan/1.0' } })
+    const response = await fetch(site.ext, { headers: { 'User-Agent': 'XPTV-for-UZ-website-scan/1.0' }, signal: AbortSignal.timeout(30000) })
     if (!response.ok) throw new Error(`HTTP ${response.status}`)
     const code = await response.text()
     webSite = extractWebsite(code) || webSite
@@ -68,12 +68,12 @@ if (shouldFetch) {
       let response
       let primaryError = ''
       try {
-        response = await fetch(item.url, { headers: { 'User-Agent': 'XPTV-for-UZ-sync/2.0' } })
+        response = await fetch(item.url, { headers: { 'User-Agent': 'XPTV-for-UZ-sync/2.0' }, signal: AbortSignal.timeout(30000) })
         if (!response.ok) throw new Error(`HTTP ${response.status}`)
       } catch (error) {
         primaryError = error.message
         if (!item.fallbackUrl) throw error
-        response = await fetch(item.fallbackUrl, { headers: { 'User-Agent': 'XPTV-for-UZ-sync/2.0' } })
+        response = await fetch(item.fallbackUrl, { headers: { 'User-Agent': 'XPTV-for-UZ-sync/2.0' }, signal: AbortSignal.timeout(30000) })
         if (!response.ok) throw new Error(`${item.catalog}: primary ${primaryError}; fallback HTTP ${response.status}`)
         console.warn(`${item.catalog}: primary proxy unavailable (${primaryError}); used canonical fallback`)
       }
