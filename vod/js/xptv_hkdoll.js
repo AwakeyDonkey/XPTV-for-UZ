@@ -1,7 +1,7 @@
 // ignore
 //@name:XPAV - 玩偶姐姐
 //@webSite:https://hongkongdollvideo.com
-//@version:4
+//@version:5
 //@remark:XPTV 动态兼容适配器；首次使用需要联网加载原始源
 //@isAV:1
 //@deprecated:0
@@ -83,6 +83,18 @@ function xptvCheerioTools() {
   }
 }
 
+// UZ req() never throws: on a network failure it resolves with data null and the reason in
+// error. Surface that reason instead of letting upstream code fail on JSON.parse('null').data.
+function xptvCheckResponse(url, response) {
+  if (response.data != null || !response.error) return
+  const code = response.code ? ' (HTTP ' + response.code + ')' : ''
+  throw new Error('网络请求失败' + code + ': ' + response.error + ' — ' + String(url).split('?')[0])
+}
+
+function xptvStatus(response) {
+  return response.code || response.statusCode || response.status || 200
+}
+
 async function xptvRequest(method, url, options) {
   const opts = options || {}
   const reqOptions = {
@@ -94,19 +106,21 @@ async function xptvRequest(method, url, options) {
   if (opts.data != null) reqOptions.data = opts.data
   if (opts.body != null) reqOptions.data = opts.body
   const response = (await req(url, reqOptions)) || {}
+  xptvCheckResponse(url, response)
   const headers = xptvHeaders(response.headers)
   return {
     data: xptvText(response.data),
     headers: headers,
     respHeaders: headers,
-    status: response.statusCode || response.status || 200,
+    status: xptvStatus(response),
   }
 }
 
 async function xptvLoadRuntime() {
   if (xptvRuntimePromise) return xptvRuntimePromise
   xptvRuntimePromise = (async () => {
-    const sourceResponse = await req(XPTV_SOURCE_URL, { method: 'get', responseType: 'plain' })
+    const sourceResponse = (await req(XPTV_SOURCE_URL, { method: 'get', responseType: 'plain' })) || {}
+    xptvCheckResponse(XPTV_SOURCE_URL, sourceResponse)
     const sourceCode = xptvText(sourceResponse.data)
     if (!sourceCode || sourceCode.includes('<html')) throw new Error('XPTV source download returned invalid JavaScript')
 

@@ -35,7 +35,7 @@ for (const item of local) {
     if (!new RegExp(`async function ${fn}\\b`).test(code)) errors.push(`${item.api}: missing ${fn}`)
   }
   if (item.api.startsWith('vod/js/xptv_')) {
-    if (item.version !== 4) errors.push(`${item.api}: expected adapter version 4`)
+    if (item.version !== 5) errors.push(`${item.api}: expected adapter version 5`)
     if (item.name.startsWith('XPAV - ')) {
       for (const helper of ['xptvFilterTitles', 'xptvFilterValue', 'XPTV_HAS_FILTERS']) {
         if (code.includes(helper)) errors.push(`${item.api}: XPAV adapter must use the pre-filter format (found ${helper})`)

@@ -113,7 +113,7 @@ const slugify = (site, index) => {
 }
 
 const jsString = (value) => JSON.stringify(String(value))
-const adapterVersion = 4
+const adapterVersion = 5
 
 const capabilityConstants = (site) => site.isAV ? '' : `
 const XPTV_HAS_SEARCH = ${site.hasSearch !== false}
@@ -163,7 +163,8 @@ function xptvFilterTitles(rawFilter) {
 
 const downloadHelper = (site) => site.isAV ? '' : `      download: async (url, options) => {
         const opts = options || {}
-        const response = await req(url, { method: 'get', headers: opts.headers || {}, responseType: 'arraybuffer' })
+        const response = (await req(url, { method: 'get', headers: opts.headers || {}, responseType: 'arraybuffer' })) || {}
+        xptvCheckResponse(url, response)
         let bytes = response.data
         if (bytes instanceof ArrayBuffer) bytes = new Uint8Array(bytes)
         else if (ArrayBuffer.isView(bytes)) bytes = new Uint8Array(bytes.buffer, bytes.byteOffset, bytes.byteLength)
@@ -171,7 +172,7 @@ const downloadHelper = (site) => site.isAV ? '' : `      download: async (url, o
         const data = bytes && typeof bytes.length === 'number'
           ? Array.from(bytes, (byte) => Number(byte).toString(2).padStart(8, '0')).join('')
           : xptvText(bytes)
-        return { data: data, headers: response.headers || {}, respHeaders: response.headers || {}, status: response.statusCode || response.status || 200 }
+        return { data: data, headers: response.headers || {}, respHeaders: response.headers || {}, status: xptvStatus(response) }
       },
 `
 
@@ -340,6 +341,18 @@ ${filterHelpers(site)}function xptvCheerioTools() {
   }
 }
 
+// UZ req() never throws: on a network failure it resolves with data null and the reason in
+// error. Surface that reason instead of letting upstream code fail on JSON.parse('null').data.
+function xptvCheckResponse(url, response) {
+  if (response.data != null || !response.error) return
+  const code = response.code ? ' (HTTP ' + response.code + ')' : ''
+  throw new Error('网络请求失败' + code + ': ' + response.error + ' — ' + String(url).split('?')[0])
+}
+
+function xptvStatus(response) {
+  return response.code || response.statusCode || response.status || 200
+}
+
 async function xptvRequest(method, url, options) {
   const opts = options || {}
   const reqOptions = {
@@ -351,19 +364,21 @@ async function xptvRequest(method, url, options) {
   if (opts.data != null) reqOptions.data = opts.data
   if (opts.body != null) reqOptions.data = opts.body
   const response = (await req(url, reqOptions)) || {}
+  xptvCheckResponse(url, response)
   const headers = xptvHeaders(response.headers)
   return {
     data: xptvText(response.data),
     headers: headers,
     respHeaders: headers,
-    status: response.statusCode || response.status || 200,
+    status: xptvStatus(response),
   }
 }
 
 async function xptvLoadRuntime() {
   if (xptvRuntimePromise) return xptvRuntimePromise
   xptvRuntimePromise = (async () => {
-    const sourceResponse = await req(XPTV_SOURCE_URL, { method: 'get', responseType: 'plain' })
+    const sourceResponse = (await req(XPTV_SOURCE_URL, { method: 'get', responseType: 'plain' })) || {}
+    xptvCheckResponse(XPTV_SOURCE_URL, sourceResponse)
     const sourceCode = xptvText(sourceResponse.data)
     if (!sourceCode || sourceCode.includes('<html')) throw new Error('XPTV source download returned invalid JavaScript')
 

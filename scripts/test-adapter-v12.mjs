@@ -170,4 +170,21 @@ assert.equal(cookiePlay.data, 'https://video.example/bdys.m3u8')
 assert.deepEqual(cookiePlay.headers, { 'User-Agent': 'bdys-test', Cookie: 'session=abc' })
 assert.deepEqual(cookiePlay.urls[0].headers, { 'User-Agent': 'bdys-test', Cookie: 'session=abc' })
 
+// UZ req() resolves with { data: null, error, code } on a network failure. The adapter must report
+// that reason rather than the upstream's JSON.parse('null').data TypeError.
+const failingContext = createContext(adapterCode, 'vod/js/xptv_jpyy.js')
+failingContext.req = async (url) => {
+  if (url.includes('raw.githubusercontent.com')) return { data: `
+async function getConfig() { return jsonify({ tabs: [{ name: '电影', ext: { id: 1 } }] }) }
+async function getCards() {
+  const { data } = await $fetch.get('https://api.example/v1/list?_vv=sig')
+  return jsonify({ list: JSON.parse(data).data.list })
+}`, headers: {}, code: 200, error: '' }
+  return { data: null, headers: {}, code: 500, error: 'Connection timed out' }
+}
+const failingClasses = JSON.parse(await failingContext.getClassList({}))
+assert.equal(failingClasses.error, '')
+const failingList = JSON.parse(await failingContext.getVideoList({ url: failingClasses.data[0].type_id, page: 1 }))
+assert.equal(failingList.error, 'Error: 网络请求失败 (HTTP 500): Connection timed out — https://api.example/v1/list')
+
 console.log('Verified XPTV v1.2 filters/search plus XPAV legacy list, detail, playback, and search behavior.')
