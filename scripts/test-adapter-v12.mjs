@@ -130,4 +130,44 @@ const xpavSearch = JSON.parse(await xpavContext.searchVideo({ searchWord: '测�
 assert.equal(xpavSearch.error, '')
 assert.equal(xpavSearch.data[0].vod_name, '测试||')
 
+// Mirrors 哔滴影视: getConfig() stores a session cookie that playback needs, the user enters via
+// search (never calling getClassList), and getPlayinfo returns headers as an array.
+const cookieUpstream = `
+const headers = { 'User-Agent': 'bdys-test' }
+async function getConfig() {
+  if (!headers['Cookie']) {
+    const { respHeaders } = await $fetch.get('https://site.example/zzzzz', { headers })
+    headers['Cookie'] = respHeaders['Set-Cookie']?.split(';')[0] || respHeaders['set-cookie'][0].split(';')[0]
+  }
+  return jsonify({ tabs: [] })
+}
+async function getCards() { return jsonify({ list: [] }) }
+async function search() { return jsonify({ list: [{ vod_id: '/movie/1', vod_name: '时空线索', ext: { url: 'https://site.example/movie/1' } }] }) }
+async function getTracks() { return jsonify({ list: [{ title: '在线', tracks: [{ name: '蓝光', ext: { url: 'https://site.example/play/1' } }] }] }) }
+async function getPlayinfo() {
+  const data2 = (await $fetch.get('https://site.example/lines', { headers })).data
+  return jsonify({ urls: [JSON.parse(data2).data.url3], headers: [headers] })
+}
+`
+const cookieAdapterCode = fs.readFileSync(path.join(root, 'vod/js/xptv_bde4.js'), 'utf8')
+const cookieContext = createContext(cookieAdapterCode, 'vod/js/xptv_bde4.js')
+cookieContext.req = async (url, options) => {
+  if (url.includes('raw.githubusercontent.com')) return { data: cookieUpstream, headers: {}, statusCode: 200 }
+  if (url.endsWith('/zzzzz')) return { data: '', headers: { 'set-cookie': 'session=abc; path=/; HttpOnly' }, statusCode: 404 }
+  if (url.endsWith('/lines')) {
+    if ((options.headers || {}).Cookie !== 'session=abc') return { data: null, headers: {}, statusCode: 403 }
+    return { data: '{"data":{"url3":"https://video.example/bdys.m3u8"}}', headers: {}, statusCode: 200 }
+  }
+  throw new Error('unexpected request ' + url)
+}
+const cookieSearch = JSON.parse(await cookieContext.searchVideo({ searchWord: '时空线索', page: 1 }))
+assert.equal(cookieSearch.error, '')
+const cookieDetail = JSON.parse(await cookieContext.getVideoDetail({ url: cookieSearch.data[0].vod_id }))
+assert.equal(cookieDetail.error, '')
+const cookiePlay = JSON.parse(await cookieContext.getVideoPlayUrl({ url: cookieDetail.data.vod_play_url.split('$')[1] }))
+assert.equal(cookiePlay.error, '')
+assert.equal(cookiePlay.data, 'https://video.example/bdys.m3u8')
+assert.deepEqual(cookiePlay.headers, { 'User-Agent': 'bdys-test', Cookie: 'session=abc' })
+assert.deepEqual(cookiePlay.urls[0].headers, { 'User-Agent': 'bdys-test', Cookie: 'session=abc' })
+
 console.log('Verified XPTV v1.2 filters/search plus XPAV legacy list, detail, playback, and search behavior.')

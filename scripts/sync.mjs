@@ -113,7 +113,7 @@ const slugify = (site, index) => {
 }
 
 const jsString = (value) => JSON.stringify(String(value))
-const adapterVersion = 3
+const adapterVersion = 4
 
 const capabilityConstants = (site) => site.isAV ? '' : `
 const XPTV_HAS_SEARCH = ${site.hasSearch !== false}
@@ -181,7 +181,7 @@ const subclassListFunction = (site) => site.isAV ? `async function getSubclassLi
   const backData = new RepVideoSubclassList()
   try {
     if (!XPTV_HAS_FILTERS) return JSON.stringify(backData)
-    const runtime = await xptvLoadRuntime()
+    const runtime = await xptvReady()
     if (!runtime.getCards) throw new Error('XPTV source does not implement getCards')
     const ext = xptvDecode(args.url)
     ext.page = 1
@@ -205,7 +205,7 @@ const subclassVideoListFunction = (site) => site.isAV ? `async function getSubcl
 }` : `async function getSubclassVideoList(args) {
   const backData = new RepVideoList()
   try {
-    const runtime = await xptvLoadRuntime()
+    const runtime = await xptvReady()
     if (!runtime.getCards) throw new Error('XPTV source does not implement getCards')
     const ext = xptvDecode(args.subclassId || args.mainClassId || args.url)
     ext.page = args.page || 1
@@ -225,7 +225,7 @@ const subclassVideoListFunction = (site) => site.isAV ? `async function getSubcl
 const searchFunction = (site) => site.isAV ? `async function searchVideo(args) {
   const backData = new RepVideoList()
   try {
-    const runtime = await xptvLoadRuntime()
+    const runtime = await xptvReady()
     if (!runtime.search) throw new Error('XPTV source does not implement search')
     const result = xptvParse(await runtime.search(JSON.stringify({ text: args.searchWord || '', page: args.page || 1 })))
     backData.data = (Array.isArray(result.list) ? result.list : []).map(xptvCardToVideo)
@@ -235,7 +235,7 @@ const searchFunction = (site) => site.isAV ? `async function searchVideo(args) {
 }` : `async function searchVideo(args) {
   const backData = new RepVideoList()
   try {
-    const runtime = await xptvLoadRuntime()
+    const runtime = await xptvReady()
     if (!XPTV_HAS_SEARCH || !runtime.search) throw new Error('XPTV source does not implement search')
     const keyword = String(args.searchWord || '').trim()
     if (!keyword) return JSON.stringify(backData)
@@ -247,12 +247,13 @@ const searchFunction = (site) => site.isAV ? `async function searchVideo(args) {
   return JSON.stringify(backData)
 }`
 
-const playHeadersSetup = (site) => site.isAV ? `    const playHeaders = Array.isArray(result.headers)
+// XPTV sources return headers as an array parallel to urls; UZ expects one object per url.
+const playHeadersSetup = () => `    const playHeaders = Array.isArray(result.headers)
       ? ((result.headers[0] && typeof result.headers[0] === 'object') ? result.headers[0] : {})
       : ((result.headers && typeof result.headers === 'object') ? result.headers : {})
-` : ''
+`
 
-const playHeadersValue = (site) => site.isAV ? 'playHeaders' : 'result.headers'
+const playHeadersValue = () => 'playHeaders'
 
 const adapter = (site, slug) => `// ignore
 //@name:${site.catalog || 'XPTV'} - ${site.name}
@@ -280,7 +281,25 @@ let xptvRuntimePromise = null
 const xptvMemoryCache = {}
 
 function xptvText(value) {
+  if (value == null) return ''
   return typeof value === 'string' ? value : JSON.stringify(value)
+}
+
+// Expose response headers under their original, lower-case and Title-Case names, so upstream
+// code such as respHeaders['Set-Cookie'].split(';') works whatever casing UZ returns.
+function xptvHeaders(raw) {
+  const headers = {}
+  if (!raw || typeof raw !== 'object') return headers
+  Object.keys(raw).forEach((key) => {
+    const value = raw[key]
+    const text = Array.isArray(value) ? value.join(', ') : String(value == null ? '' : value)
+    headers[key] = value
+    const lower = key.toLowerCase()
+    const title = lower.replace(/(^|-)([a-z])/g, (_, dash, ch) => dash + ch.toUpperCase())
+    if (!(lower in headers)) headers[lower] = text
+    if (!(title in headers)) headers[title] = text
+  })
+  return headers
 }
 
 function xptvParse(value) {
@@ -331,11 +350,12 @@ async function xptvRequest(method, url, options) {
   if (opts.params) reqOptions.queryParameters = opts.params
   if (opts.data != null) reqOptions.data = opts.data
   if (opts.body != null) reqOptions.data = opts.body
-  const response = await req(url, reqOptions)
+  const response = (await req(url, reqOptions)) || {}
+  const headers = xptvHeaders(response.headers)
   return {
     data: xptvText(response.data),
-    headers: response.headers || {},
-    respHeaders: response.headers || {},
+    headers: headers,
+    respHeaders: headers,
     status: response.statusCode || response.status || 200,
   }
 }
@@ -389,7 +409,26 @@ ${downloadHelper(site)}    }
     )
     return factory(createCheerio, createCryptoJS, createJSEncrypt, loadJSEncrypt, '{}', $fetch, $html, $cache, $print, $utils, jsonify, argsify)
   })()
+  xptvRuntimePromise.catch(() => { xptvRuntimePromise = null })
   return xptvRuntimePromise
+}
+
+// Many XPTV sources set cookies or tokens inside getConfig(). UZ can open search results,
+// details or playback without calling getClassList first, so run it once before any entry point.
+let xptvConfigPromise = null
+function xptvLoadConfig(runtime) {
+  if (!runtime.getConfig) return Promise.resolve({})
+  if (!xptvConfigPromise) {
+    xptvConfigPromise = Promise.resolve().then(() => runtime.getConfig()).then(xptvParse)
+    xptvConfigPromise.catch(() => { xptvConfigPromise = null })
+  }
+  return xptvConfigPromise
+}
+
+async function xptvReady() {
+  const runtime = await xptvLoadRuntime()
+  try { await xptvLoadConfig(runtime) } catch (_) {}
+  return runtime
 }
 
 function xptvCardToVideo(card) {
@@ -406,9 +445,9 @@ function xptvCardToVideo(card) {
 async function getClassList(args) {
   const backData = new RepVideoClassList()
   try {
-    const runtime = await xptvLoadRuntime()
+    const runtime = await xptvReady()
     if (!runtime.getConfig) throw new Error('XPTV source does not implement getConfig')
-    const config = xptvParse(await runtime.getConfig())
+    const config = await xptvLoadConfig(runtime)
     const tabs = Array.isArray(config.tabs) ? config.tabs : []
     backData.data = tabs.map((tab, index) => {
       const item = new VideoClass()
@@ -426,7 +465,7 @@ ${subclassListFunction(site)}
 async function getVideoList(args) {
   const backData = new RepVideoList()
   try {
-    const runtime = await xptvLoadRuntime()
+    const runtime = await xptvReady()
     if (!runtime.getCards) throw new Error('XPTV source does not implement getCards')
     const ext = xptvDecode(args.url)
     ext.page = args.page || 1
@@ -441,7 +480,7 @@ ${subclassVideoListFunction(site)}
 async function getVideoDetail(args) {
   const backData = new RepVideoDetail()
   try {
-    const runtime = await xptvLoadRuntime()
+    const runtime = await xptvReady()
     if (!runtime.getTracks) throw new Error('XPTV source does not implement getTracks')
     const payload = xptvDecode(args.url)
     const card = payload.card || {}
@@ -465,7 +504,7 @@ async function getVideoDetail(args) {
 async function getVideoPlayUrl(args) {
   const backData = new RepVideoPlayUrl()
   try {
-    const runtime = await xptvLoadRuntime()
+    const runtime = await xptvReady()
     if (!runtime.getPlayinfo) throw new Error('XPTV source does not implement getPlayinfo')
     const result = xptvParse(await runtime.getPlayinfo(JSON.stringify(xptvDecode(args.url))))
     const urls = Array.isArray(result.urls) ? result.urls : []
